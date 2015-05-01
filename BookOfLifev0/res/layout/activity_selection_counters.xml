@@ -9,8 +9,17 @@
     tools:context=".SelectionCountersActivity" >
 
     <TextView
+        android:id="@+id/Title_counters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world_counters" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_below="@id/Title_counters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+       
+    </ListView>
 
 </RelativeLayout>

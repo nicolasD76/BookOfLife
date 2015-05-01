@@ -1,4 +1,4 @@
-package ndfv.bookoflifev0;
+package ndfv.bookoflifev0.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
