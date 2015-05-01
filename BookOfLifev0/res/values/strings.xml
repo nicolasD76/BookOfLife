@@ -4,5 +4,10 @@
     <string name="app_name">BookOfLifev0</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="test">Hellotest!</string>
+    <string name="text_button_compteurs">Compteur</string>
+    <string name="text_button_stats">Stats</string>
+    <string name="book_of_life">Book Of Life</string>
+    
 
 </resources>
