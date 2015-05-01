@@ -1,4 +1,6 @@
-package com.example.bookoflifev0;
+package ndfv.bookoflifev0;
+
+import ndfv.bookoflifev0.R;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,9 +8,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener{
+public class MenuMainActivity extends Activity implements OnClickListener{
 	private Button compteurButton = null;
 	private int numberOfCompteur = 0;
 	private String compteurLabel = "Compteur";
