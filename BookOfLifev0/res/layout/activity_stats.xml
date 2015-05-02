@@ -9,8 +9,17 @@
     tools:context=".StatsActivity" >
 
     <TextView
+        android:id="@+id/stat_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world_stats" />
+    
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:layout_below="@id/stat_title" >
+         >
+    </ListView>
 
 </RelativeLayout>

@@ -5,16 +5,26 @@ public class CounterEntity {
 	private long id = -1;
 	private String name = null;
 	private boolean isSelected = false;
+	private double value;
 
 	public CounterEntity(String name, boolean isSelected, long id) {
 		super();
 		this.name = name;
 		this.isSelected = isSelected;
 		this.id = id;
+		this.value = 1;
 	}
 
 	public CounterEntity() {
 		super();
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
 	}
 
 	public String getName() {
