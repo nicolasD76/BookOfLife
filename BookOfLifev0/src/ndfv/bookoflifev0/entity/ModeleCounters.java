@@ -6,9 +6,11 @@ public class ModeleCounters {
 	private static ModeleCounters instance;
 	
 	private ArrayList<CounterEntity> countersList;
+	private ArrayList<CounterEntity> countersListActivated;
 	
 	private ModeleCounters(){
 		countersList = new ArrayList<CounterEntity>();
+		countersListActivated = new ArrayList<CounterEntity>();
 	} 
 	
 	public static ModeleCounters getInstance(){
@@ -27,5 +29,14 @@ public class ModeleCounters {
 		this.countersList = countersList;
 	}
 	
+	public ArrayList<CounterEntity> getCountersActivatedList() {
+		countersListActivated.clear();
+		for(int i=0;i<countersList.size();i++){
+			if(countersList.get(i).isSelected()){
+				countersListActivated.add(countersList.get(i));
+			}
+		}
+		return countersListActivated;
+	}
 	
 }
