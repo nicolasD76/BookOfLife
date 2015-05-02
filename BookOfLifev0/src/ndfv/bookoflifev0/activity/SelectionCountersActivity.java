@@ -96,7 +96,7 @@ public class SelectionCountersActivity extends ListActivity implements
 			break;
 		}
 		adapter.notifyDataSetChanged();
-
+ 
 	}
 
 	@Override
