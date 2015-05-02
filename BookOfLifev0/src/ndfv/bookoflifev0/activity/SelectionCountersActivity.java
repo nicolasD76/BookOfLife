@@ -63,7 +63,7 @@ public class SelectionCountersActivity extends ListActivity implements
 			counterEntity.setName(valueAddCounter.getText().toString());
 			// enregistrer le nouveau commentaire dans la base de données
 			counterEntity = countersDAO.createCounterEntity(counterEntity);
-			adapter.add(counterEntity);
+			adapter.add(counterEntity); 
 			break;
 		}
 		adapter.notifyDataSetChanged();
