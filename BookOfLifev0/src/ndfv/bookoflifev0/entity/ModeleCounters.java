@@ -2,18 +2,18 @@ package ndfv.bookoflifev0.entity;
 
 import java.util.ArrayList;
 
-public class ModeleCounterEntity {
-	private static ModeleCounterEntity instance;
+public class ModeleCounters {
+	private static ModeleCounters instance;
 	
 	private ArrayList<CounterEntity> countersList;
 	
-	private ModeleCounterEntity(){
+	private ModeleCounters(){
 		countersList = new ArrayList<CounterEntity>();
 	} 
 	
-	public static ModeleCounterEntity getInstance(){
+	public static ModeleCounters getInstance(){
 		if(instance == null){
-			instance = new ModeleCounterEntity();
+			instance = new ModeleCounters();
 		}
 		
 		return instance;
