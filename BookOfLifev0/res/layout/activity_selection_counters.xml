@@ -9,17 +9,43 @@
     tools:context=".SelectionCountersActivity" >
 
     <TextView
-        android:id="@+id/Title_counters"
+        android:id="@+id/title_counters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world_counters" />
 
+    <LinearLayout
+        android:id="@+id/group"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_counters"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/add_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="Entrez un nouveau compteur: "/>
+
+        <EditText
+            android:id="@+id/add_value"
+            android:minWidth="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New" />
+    </LinearLayout>
+
     <ListView
         android:id="@android:id/list"
-        android:layout_below="@id/Title_counters"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-       
+        android:layout_height="wrap_content"
+        android:layout_below="@id/group" >
     </ListView>
 
 </RelativeLayout>

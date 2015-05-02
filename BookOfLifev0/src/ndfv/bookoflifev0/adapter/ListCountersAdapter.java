@@ -33,6 +33,11 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		TextView code;
 		CheckBox name;
 	}
+	
+	@Override
+	public void add(CounterEntity counter){
+		countersList.add(counter);
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
