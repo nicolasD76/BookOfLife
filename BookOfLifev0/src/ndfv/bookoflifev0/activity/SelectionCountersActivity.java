@@ -73,13 +73,24 @@ public class SelectionCountersActivity extends ListActivity implements
 			counterEntity.setName(valueAddCounter.getText().toString());
 			// enregistrer le nouveau commentaire dans la base de données
 			counterEntity = countersDAO.createCounterEntity(counterEntity);
-			adapter.add(counterEntity);
+			modeleCounters.getCountersList().add(counterEntity);
+			adapter.notifyDataSetChanged();
+			setListAdapter(adapter);
 			break;
 		case R.id.delete_button:
-			for(int i = 0; i < modeleCounters.getCountersList().size();i++){
-				if(modeleCounters.getCountersList().get(i).isSelected()){
-					countersDAO.deleteComment(modeleCounters.getCountersList().get(i));
-					adapter.remove(modeleCounters.getCountersList().get(i));
+			System.out.println("size: " + ModeleCounters.getInstance().getCountersList().size());
+			int size = ModeleCounters.getInstance().getCountersList().size();
+			int alreadySuppressed = 0;
+			for(int i = 0; i <size;i++){
+				System.out.println("name: " + ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed).getName() + " selected: " + ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed).isSelected());
+
+				if(ModeleCounters.getInstance().getCountersList().get(i  - alreadySuppressed).isSelected()){
+					System.out.println("deleted!");
+					countersDAO.deleteComment(ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed));
+					adapter.remove(ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed));
+					alreadySuppressed = alreadySuppressed + 1;
+					adapter.notifyDataSetChanged();
+					setListAdapter(adapter);
 				}
 			}
 			break;
