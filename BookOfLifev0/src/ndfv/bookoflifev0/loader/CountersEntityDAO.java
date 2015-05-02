@@ -46,7 +46,7 @@ public class CountersEntityDAO {
 	    cursor.close();
 	    return newCounterEntity;
 	  }
-
+ 
 	  public void deleteComment(CounterEntity counterEntity) {
 	    long id = counterEntity.getId();
 	    System.out.println("Comment deleted with id: " + id);

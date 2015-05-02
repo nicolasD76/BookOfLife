@@ -51,7 +51,7 @@ public class SelectionCountersActivity extends ListActivity implements
 		getMenuInflater().inflate(R.menu.selection_counters, menu);
 		return true;
 	}
-
+ 
 	@Override
 	public void onClick(View v) {
 		@SuppressWarnings("unchecked")
