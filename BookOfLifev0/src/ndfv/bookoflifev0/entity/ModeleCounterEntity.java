@@ -9,7 +9,7 @@ public class ModeleCounterEntity {
 	
 	private ModeleCounterEntity(){
 		countersList = new ArrayList<CounterEntity>();
-	}
+	} 
 	
 	public static ModeleCounterEntity getInstance(){
 		if(instance == null){

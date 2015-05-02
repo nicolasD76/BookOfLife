@@ -23,6 +23,7 @@ public class SelectionCountersActivity extends ListActivity implements
 	private Button buttonAddCounter = null;
 	private EditText valueAddCounter = null;
 	private CountersEntityDAO countersDAO;
+	private String flolatarlouze;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
