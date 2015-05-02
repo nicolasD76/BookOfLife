@@ -51,7 +51,6 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		ViewHolder holder = null;
-		   Log.v("ConvertView", String.valueOf(position));
 		 
 		   if (convertView == null) {
 		   LayoutInflater vi = (LayoutInflater)getContext().getSystemService(
