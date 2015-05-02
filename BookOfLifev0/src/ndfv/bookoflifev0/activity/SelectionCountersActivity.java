@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import ndfv.bookoflifev0.adapter.ListCountersAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
+import ndfv.bookoflifev0.entity.ModeleCounters;
 import ndfv.bookoflifev0.loader.CountersEntityDAO;
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -19,17 +20,18 @@ import com.example.bookoflifev0.R;
 public class SelectionCountersActivity extends ListActivity implements
 		OnClickListener {
 
-	private ArrayList<CounterEntity> listOfCOunter = new ArrayList<CounterEntity>();
+	private ModeleCounters modeleCounters = null;
 	private Button buttonAddCounter = null;
 	private EditText valueAddCounter = null;
 	private CountersEntityDAO countersDAO;
 	private String flolatarlouze;
-  
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selection_counters);
 		
+		modeleCounters = ModeleCounters.getInstance();
 		countersDAO = new CountersEntityDAO(this);
 		
 		buttonAddCounter = new Button(getApplicationContext());
@@ -37,9 +39,11 @@ public class SelectionCountersActivity extends ListActivity implements
 		buttonAddCounter.setOnClickListener(this);
 		valueAddCounter = (EditText) findViewById(R.id.add_value);
 
-		listOfCOunter.addAll((Collection<? extends CounterEntity>) countersDAO.getAllCounterEntity());
+		if(modeleCounters.getCountersList().size() == 0){
+			modeleCounters.getCountersList().addAll((Collection<? extends CounterEntity>) countersDAO.getAllCounterEntity());
+		}
 		ListCountersAdapter adapter = new ListCountersAdapter(this,
-				android.R.layout.simple_list_item_1, listOfCOunter);
+				android.R.layout.simple_list_item_1, modeleCounters.getCountersList());
 		adapter.notifyDataSetChanged();
 		// ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 		// android.R.layout.simple_list_item_1, mStrings);
