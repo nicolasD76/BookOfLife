@@ -16,36 +16,54 @@
 
     <LinearLayout
         android:id="@+id/group"
-        android:layout_margin="20dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_counters"
+        android:layout_margin="20dp"
         android:orientation="horizontal" >
- 
+
         <TextView
             android:id="@+id/add_label"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="Entrez un nouveau compteur: "/>
+            android:layout_height="wrap_content"
+            android:text="Entrez un nouveau compteur: " />
 
         <EditText
             android:id="@+id/add_value"
-            android:minWidth="60dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <Button
-            android:id="@+id/add_button"
-            android:layout_below="@id/group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="60dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/group_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/group"
+        android:layout_margin="20dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/add_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Add New" />
+
+        <Button
+            android:id="@+id/delete_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+                        android:layout_weight="1"
+            
+            android:text="delete selection" />
+    </LinearLayout>
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add_button" >
+        android:layout_below="@id/group_button" >
     </ListView>
 
 </RelativeLayout>

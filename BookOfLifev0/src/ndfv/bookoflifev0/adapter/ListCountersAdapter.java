@@ -3,6 +3,7 @@ package ndfv.bookoflifev0.adapter;
 import java.util.ArrayList;
 
 import ndfv.bookoflifev0.entity.CounterEntity;
+import ndfv.bookoflifev0.entity.ModeleCounters;
 
 import android.content.Context;
 import android.util.Log;
@@ -39,6 +40,12 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		super.add(counter);
 		this.countersList.add(counter);
 	}
+	
+	@Override
+	public void remove(CounterEntity counter){
+		super.remove(counter);
+		this.countersList.remove(counter);
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -55,10 +62,19 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		   holder.code = (TextView) convertView.findViewById(R.id.label_counters);
 		   holder.name = (CheckBox) convertView.findViewById(R.id.check_box_counters);
 		   convertView.setTag(holder);
+		      final int currentPosition = position;
+
 		 
 		    holder.name.setOnClickListener( new View.OnClickListener() {  
 		     public void onClick(View v) {   
-		      CheckBox cb = (CheckBox) v ;  
+		      CheckBox cb = (CheckBox) v ; 
+		      System.out.println("pass in clicklistener before: " + ModeleCounters.getInstance().getCountersList().get(currentPosition).isSelected());
+		      if(ModeleCounters.getInstance().getCountersList().get(currentPosition).isSelected()){
+			      ModeleCounters.getInstance().getCountersList().get(currentPosition).setSelected(false);
+		      }else {
+			      ModeleCounters.getInstance().getCountersList().get(currentPosition).setSelected(true);
+		      }
+		      System.out.println("pass in clicklistener after: " + ModeleCounters.getInstance().getCountersList().get(currentPosition).isSelected());
 		     }  
 		    });  
 		   } 
