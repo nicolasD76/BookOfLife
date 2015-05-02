@@ -76,6 +76,7 @@ public class SelectionCountersActivity extends ListActivity implements
 			modeleCounters.getCountersList().add(counterEntity);
 			adapter.notifyDataSetChanged();
 			setListAdapter(adapter);
+			valueAddCounter.setText(null);
 			break;
 		case R.id.delete_button:
 			System.out.println("size: " + ModeleCounters.getInstance().getCountersList().size());
