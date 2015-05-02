@@ -1,8 +1,17 @@
 package ndfv.bookoflifev0.activity;
 
+import java.util.Collection;
+
+import ndfv.bookoflifev0.adapter.ListCountersActivatedAdapter;
+import ndfv.bookoflifev0.adapter.ListCountersAdapter;
+import ndfv.bookoflifev0.entity.CounterEntity;
+import ndfv.bookoflifev0.entity.ModeleCounters;
+import ndfv.bookoflifev0.loader.CountersEntityDAO;
+
 import com.example.bookoflifev0.R;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,9 +19,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MenuMainActivity extends Activity implements OnClickListener{
+public class MenuMainActivity extends ListActivity implements OnClickListener{
 	private Button compteursButton = null;
 	private Button statsButton = null;
+	private CountersEntityDAO countersDAO;
+
 //	private int numberOfCompteur = 0;
 //	private String compteurLabel = "Compteur";
 	
@@ -24,7 +35,20 @@ public class MenuMainActivity extends Activity implements OnClickListener{
         compteursButton.setOnClickListener(this);
 		statsButton = (Button) findViewById(R.id.stats_button);
 		statsButton.setOnClickListener(this);
+		
+		countersDAO = new CountersEntityDAO(this);
 
+		
+		if (ModeleCounters.getInstance().getCountersList().size() == 0) {
+			ModeleCounters.getInstance().getCountersList().addAll(
+					(Collection<? extends CounterEntity>) countersDAO
+							.getAllCounterEntity());
+		}
+		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,
+				android.R.layout.simple_list_item_1,
+				ModeleCounters.getInstance().getCountersActivatedList());
+		adapter.notifyDataSetChanged();
+		setListAdapter(adapter);
 
 	}
  
@@ -46,6 +70,29 @@ public class MenuMainActivity extends Activity implements OnClickListener{
 			break;
 		}
 	}
+	
+	@Override
+	protected void onResume() {
+		countersDAO.open();
+		if (ModeleCounters.getInstance().getCountersList().size() == 0) {
+			ModeleCounters.getInstance().getCountersList().addAll(
+					(Collection<? extends CounterEntity>) countersDAO
+							.getAllCounterEntity());
+		}
+		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,
+				android.R.layout.simple_list_item_1,
+				ModeleCounters.getInstance().getCountersActivatedList());
+		adapter.notifyDataSetChanged();
+		setListAdapter(adapter);
+		super.onResume();
+	}
+
+	@Override
+	protected void onPause() {
+		countersDAO.close();
+		super.onPause();
+	}
+	
 	
 	public void onButtonCompteursClick(){
 //		numberOfCompteur = numberOfCompteur + 1;
