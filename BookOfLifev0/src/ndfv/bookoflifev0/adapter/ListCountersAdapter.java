@@ -60,7 +60,7 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		      }
 		      System.out.println("pass in clicklistener after: " + ModeleCounters.getInstance().getCountersList().get(position).isSelected());
 		     }  
-		    });  
+		    });   
 		   } 
 		   else {
 		    holder = (ViewHolder) convertView.getTag();
