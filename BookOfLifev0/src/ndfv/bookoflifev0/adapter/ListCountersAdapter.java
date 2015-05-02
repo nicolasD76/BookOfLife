@@ -56,7 +56,7 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		   convertView.setTag(holder);
 		 
 		    holder.name.setOnClickListener( new View.OnClickListener() {  
-		     public void onClick(View v) {  
+		     public void onClick(View v) {   
 		      CheckBox cb = (CheckBox) v ;  
 		     }  
 		    });  
