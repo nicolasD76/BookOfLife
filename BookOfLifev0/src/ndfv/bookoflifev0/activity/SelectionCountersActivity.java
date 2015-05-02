@@ -1,6 +1,7 @@
 package ndfv.bookoflifev0.activity;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 import ndfv.bookoflifev0.adapter.ListCountersAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
@@ -28,19 +29,17 @@ public class SelectionCountersActivity extends ListActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selection_counters);
 		
-		countersDAO = new CountersEntityDAO(getApplicationContext());
+		countersDAO = new CountersEntityDAO(this);
 		
 		buttonAddCounter = new Button(getApplicationContext());
 		buttonAddCounter = (Button) findViewById(R.id.add_button);
 		buttonAddCounter.setOnClickListener(this);
 		valueAddCounter = (EditText) findViewById(R.id.add_value);
 
-//		listOfCOunter.add(new CounterEntity("clope", false, 1));
-//		listOfCOunter.add(new CounterEntity("biere", false, 2));
-//		listOfCOunter.add(new CounterEntity("verres d'eau(20cl)", false, 3));
-//		listOfCOunter.add(new CounterEntity("pet", false, 4));
+		listOfCOunter.addAll((Collection<? extends CounterEntity>) countersDAO.getAllCounterEntity());
 		ListCountersAdapter adapter = new ListCountersAdapter(this,
 				android.R.layout.simple_list_item_1, listOfCOunter);
+		adapter.notifyDataSetChanged();
 		// ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 		// android.R.layout.simple_list_item_1, mStrings);
 		setListAdapter(adapter);
@@ -61,9 +60,10 @@ public class SelectionCountersActivity extends ListActivity implements
 		switch (v.getId()) {
 		case R.id.add_button:
 			counterEntity = new CounterEntity();
+			counterEntity.setName(valueAddCounter.getText().toString());
 			// enregistrer le nouveau commentaire dans la base de données
 			counterEntity = countersDAO.createCounterEntity(counterEntity);
-//			adapter.add(counterEntity);
+			adapter.add(counterEntity);
 			break;
 		}
 		adapter.notifyDataSetChanged();

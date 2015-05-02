@@ -36,7 +36,7 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 	
 	@Override
 	public void add(CounterEntity counter){
-		countersList.add(counter);
+		this.countersList.add(counter);
 	}
 
 	@Override

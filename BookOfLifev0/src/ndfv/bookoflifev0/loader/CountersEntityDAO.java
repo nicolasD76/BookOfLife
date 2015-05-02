@@ -40,7 +40,9 @@ public class CountersEntityDAO {
 	        allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
 	        null, null, null);
 	    cursor.moveToFirst();
+
 	    CounterEntity newCounterEntity = cursorToCounterEntity(cursor);
+	    System.out.println("newCounterEntity name: " + newCounterEntity.getName() +" id: " + newCounterEntity.getId());
 	    cursor.close();
 	    return newCounterEntity;
 	  }
@@ -54,6 +56,7 @@ public class CountersEntityDAO {
 
 	  public List<CounterEntity> getAllCounterEntity() {
 	    List<CounterEntity> counterEntityList = new ArrayList<CounterEntity>();
+	    database = dbHelper.getWritableDatabase();
 
 	    Cursor cursor = database.query(MySQLiteHelper.TABLE_COUNTERS,
 	        allColumns, null, null, null, null, null);
