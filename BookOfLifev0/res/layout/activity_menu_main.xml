@@ -9,16 +9,11 @@
     tools:context=".MenuMainActivity" >
 
     <LinearLayout
+        android:id="@+id/button_menu"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <Button
-            android:id="@+id/counters_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/text_button_compteurs" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/stats_button"
@@ -26,6 +21,28 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/text_button_stats" />
+
+        <Button
+            android:id="@+id/counters_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/stats_button"
+            android:layout_weight="1"
+            android:text="@string/text_button_compteurs" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/button_menu"
+        android:layout_alignParentTop="true" >
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </ListView>
+    </RelativeLayout>
 
 </RelativeLayout>
