@@ -42,6 +42,14 @@ public class CounterEntity {
 	public void setSelected(boolean isSelected) {
 		this.isSelected = isSelected;
 	}
+	
+	public void setSelected(int isSelected) {
+		if(isSelected == 1){
+			this.isSelected = true;
+		} else {
+			this.isSelected = true;
+		}
+	}
 
 	public long getId() {
 		return id;

@@ -77,5 +77,11 @@ public class ModeleCounters implements ICounterModel{
 		countersList = counterDAO.getCounters();
 		return countersList;
 	}
+
+	@Override
+	public void updateCounter(CounterEntity entity) {
+		counterDAO.updateCounter(entity);
+		countersList.set(countersList.indexOf(entity), entity);
+	}
 	
 }

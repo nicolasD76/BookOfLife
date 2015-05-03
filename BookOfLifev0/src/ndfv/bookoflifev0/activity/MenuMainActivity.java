@@ -38,7 +38,7 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 		statsButton = (Button) findViewById(R.id.stats_button);
 		statsButton.setOnClickListener(this);
 		
-//		countersDAO = new CountersEntityDAO(this);
+		countersDAO = new CountersEntityDAO(this);
 
 		counters = ModeleCounters.getInstance(this);
 		
@@ -77,7 +77,7 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 	protected void onResume() {
 //		countersDAO.open();
 		if (counters.getCountersList().size() == 0) {
-			counters.getCountersList().addAll(
+			counters.getCounters().addAll(
 					(Collection<? extends CounterEntity>) counters.getCountersActivatedList());
 		}
 		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,

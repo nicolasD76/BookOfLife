@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
 import ndfv.bookoflifev0.exception.MiteException;
+import ndfv.bookoflifev0.loader.CountersEntityDAO;
 
 import android.content.Context;
 import android.util.Log;
@@ -22,10 +23,13 @@ import com.example.bookoflifev0.R;
 
 public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 
+	private CountersEntityDAO countersDAO;
+
 
 	public ListCountersAdapter(Context context, int textViewResourceId,
 			ArrayList<CounterEntity> countryList) {
 		super(context, textViewResourceId, countryList);
+		countersDAO = new CountersEntityDAO(context);
 	}
 
 	private class ViewHolder {
@@ -52,21 +56,34 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		 
 		    holder.name.setOnClickListener( new View.OnClickListener() {  
 		     public void onClick(View v) {   
-		      CheckBox cb = (CheckBox) v ; 
-		      ModeleCounters counters = null;
-			try {
-				counters = ModeleCounters.getInstance();
-			} catch (MiteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		      System.out.println("pass in clicklistener before: " + counters.getCountersList().get(position).isSelected() + " position: " + position);
+		    	 ModeleCounters counters = null;
+					try {
+						counters = ModeleCounters.getInstance();
+					} catch (MiteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 		      if(counters.getCountersList().get(position).isSelected()){
 			      counters.getCountersList().get(position).setSelected(false);
+			      try {
+					ModeleCounters.getInstance().updateCounter(counters.getCountersList().get(position));
+					notifyDataSetChanged();
+				} catch (MiteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			      
+			      
 		      }else {
 			      counters.getCountersList().get(position).setSelected(true);
+			      try {
+					ModeleCounters.getInstance().updateCounter(counters.getCountersList().get(position));
+					notifyDataSetChanged();
+				} catch (MiteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 		      }
-		      System.out.println("pass in clicklistener after: " + counters.getCountersList().get(position).isSelected());
 		     }  
 		    });   
 		   } 
@@ -75,13 +92,12 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		   }
 		 
 		   CounterEntity counter = null;
-		try {
-			counter = ModeleCounters.getInstance().getCountersList().get(position);
-		} catch (MiteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		   holder.name.setText(counter.getName());
+			try {
+				counter = ModeleCounters.getInstance().getCountersList().get(position);
+			} catch (MiteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		   holder.name.setText(counter.getName());
 		   holder.name.setChecked(counter.isSelected());
 		 
 		   return convertView;

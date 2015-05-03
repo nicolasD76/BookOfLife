@@ -24,10 +24,13 @@ import com.example.bookoflifev0.R;
 
 public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 
+	private CountersEntityDAO countersDAO;
+
 
 	public ListCountersActivatedAdapter(Context context, int textViewResourceId,
 			ArrayList<CounterEntity> countryList) {
 		super(context, textViewResourceId, countryList);
+		countersDAO = new CountersEntityDAO(context);
 	}
 
 	private class ViewHolder {
@@ -42,13 +45,12 @@ public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 
 		ViewHolder holder = null;
 		   CounterEntity counter = null;
-		try {
-			counter = ModeleCounters.getInstance().getCountersActivatedList().get(position);
-		} catch (MiteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+			try {
+				counter = ModeleCounters.getInstance().getCountersActivatedList().get(position);
+			} catch (MiteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		   if (convertView == null) {
 		   LayoutInflater vi = (LayoutInflater)getContext().getSystemService(
 		     Context.LAYOUT_INFLATER_SERVICE);
@@ -62,7 +64,7 @@ public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 
 		 
 		    holder.incremente.setOnClickListener( new View.OnClickListener() {  
-		     public void onClick(View v) { 
+		     public void onClick(View v) {  
 		    	 ModeleCounters counters = null;
 		    	 CounterEntity counter = null;
 		    	 try {
@@ -74,6 +76,8 @@ public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 		 		}
 		    	 counters.getCountersActivatedList().get(position).setValue(counters.getCountersActivatedList().get(position).getValue() + 1);
 		    	 ListCountersActivatedAdapter.this.notifyDataSetChanged();
+			 
+		    	 countersDAO.updateCounter(counters.getCountersActivatedList().get(position));
 		     }  
 		    });   
 		   } 
