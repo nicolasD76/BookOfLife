@@ -6,6 +6,7 @@ import ndfv.bookoflifev0.entity.ModeleCounters;
 import ndfv.bookoflifev0.exception.MiteException;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 import ndfv.bookoflifev0.bookoflifev0.R;
@@ -24,6 +25,8 @@ public class StatsActivity extends ListActivity  {
 				android.R.layout.simple_list_item_1, modeleCounters.getCountersList());
 		adapter.notifyDataSetChanged();
 		setListAdapter(adapter);
+		
+		Log.d("d jour", modeleCounters.getCountersActivatedList().get(0).getHistoric().size() + "  size");
 	}
 
 	@Override

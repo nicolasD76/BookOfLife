@@ -14,9 +14,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
   public static final String COLUMN_CHECKED = "checked";
   public static final String COLUMN_CREATION_DATE = "creation_date";
   public static final String COLUMN_LAST_UPDATE_DATE = "last_update_date";
+  
+  public static final String TABLE_HISTORIC = "historic";
+  public static final String COLUMN_ID_HISTORIC = "_id";
+  public static final String COLUMN_ID_COUNTER = "_id_counter";
+  public static final String COLUMN_DAY = "day";
+  public static final String COLUMN_VALUE_COUNTER = "value";
+  
+  
 
   private static final String DATABASE_NAME = "counters.db";
-  private static final int DATABASE_VERSION = 10;
+  private static final int DATABASE_VERSION = 12;
 
   // Commande sql pour la création de la base de données
   private static final String DATABASE_CREATE = "create table "
@@ -27,7 +35,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
       + COLUMN_CHECKED +" INTEGER NOT NULL, " 
       + COLUMN_CREATION_DATE + " TEXT NOT NULL, "
       + COLUMN_LAST_UPDATE_DATE + " TEXT NOT NULL "
-      + ");";
+      + "); ";
+  
+  private static final String CREATE_T_HISTORIC = "create table "
+	      + TABLE_HISTORIC 
+	      + "(" + COLUMN_ID_HISTORIC + " integer primary key autoincrement, " 
+	      + COLUMN_ID_COUNTER + " integer, " 
+	      + COLUMN_DAY + " text not null, " 
+	      + COLUMN_VALUE_COUNTER + " INTEGER NOT NULL, "
+	      + "FOREIGN KEY("+ COLUMN_ID_COUNTER +") REFERENCES " + TABLE_COUNTERS + "(" + COLUMN_ID + ")"
+	      + ");";
 
   public MySQLiteHelper(Context context) {
     super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -36,6 +53,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
   @Override
   public void onCreate(SQLiteDatabase database) {
     database.execSQL(DATABASE_CREATE);
+    database.execSQL(CREATE_T_HISTORIC);
   }
 
   @Override

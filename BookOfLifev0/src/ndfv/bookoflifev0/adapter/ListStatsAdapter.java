@@ -25,6 +25,7 @@ public class ListStatsAdapter extends ArrayAdapter<CounterEntity>{
 	private class ViewHolder {
 		TextView libelle_Stat;
 		TextView stat_value;
+		TextView historic_value;
 	}
 	
 	@Override
@@ -39,6 +40,7 @@ public class ListStatsAdapter extends ArrayAdapter<CounterEntity>{
 		   holder = new ViewHolder();
 		   holder.libelle_Stat = (TextView) convertView.findViewById(R.id.libelle_stats);
 		   holder.stat_value = (TextView) convertView.findViewById(R.id.stat_value);
+		   holder.historic_value = (TextView) convertView.findViewById(R.id.historic_value);
 		   convertView.setTag(holder);
 	 
 	   } 
@@ -55,6 +57,10 @@ public class ListStatsAdapter extends ArrayAdapter<CounterEntity>{
 	}
 	   holder.libelle_Stat.setText(counter.getName());
 	   holder.stat_value.setText(String.valueOf(counter.getValue()));
+	   
+	   if(counter.getHistoric().size() > 0){
+		   holder.historic_value.setText(String.valueOf(counter.getHistoric().get(0).getCounter_value()));
+	   }
 	 
 	   return convertView;
 	}

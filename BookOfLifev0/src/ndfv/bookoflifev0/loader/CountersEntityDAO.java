@@ -7,29 +7,15 @@ import ndfv.bookoflifev0.entity.CounterEntity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
 
-public class CountersEntityDAO implements ICountersDAO{
-
-	// Champs de la base de données
-	private SQLiteDatabase database;
-	private MySQLiteHelper dbHelper;
+public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 	private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
 			MySQLiteHelper.COLUMN_NAME, MySQLiteHelper.COLUMN_VALUE,
 			MySQLiteHelper.COLUMN_CHECKED, MySQLiteHelper.COLUMN_CREATION_DATE,
 			MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, MySQLiteHelper.COLUMN_LAST_UPDATE_DATE };
 
 	public CountersEntityDAO(Context context) {
-		dbHelper = new MySQLiteHelper(context);
-	}
-
-	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
-	}
-
-	public void close() {
-		dbHelper.close();
+		super(context);
 	}
 
 	private CounterEntity cursorToCounterEntity(Cursor cursor) {

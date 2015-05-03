@@ -2,9 +2,8 @@ package ndfv.bookoflifev0.entity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-
-import android.content.ContentValues;
 
 public class CounterEntity {
 
@@ -15,6 +14,8 @@ public class CounterEntity {
 	private Date creationDate;
 	private Date lastUpdateDate;
 	private SimpleDateFormat dateFormat;
+	
+	private ArrayList<HistoricDay> historic;
 
 	public CounterEntity(String name, boolean isSelected, long id) {
 		super();
@@ -25,7 +26,20 @@ public class CounterEntity {
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		this.creationDate = new Date();
 		this.lastUpdateDate = new Date();
+		historic = new ArrayList<HistoricDay>();
 	}
+
+	public ArrayList<HistoricDay> getHistoric() {
+		return historic;
+	}
+
+
+
+	public void setHistoric(ArrayList<HistoricDay> historic) {
+		this.historic = historic;
+	}
+
+
 
 	public CounterEntity() {
 		this("unknows", false, -1);

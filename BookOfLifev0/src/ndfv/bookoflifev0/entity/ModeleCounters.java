@@ -6,7 +6,9 @@ import android.content.Context;
 
 import ndfv.bookoflifev0.exception.MiteException;
 import ndfv.bookoflifev0.loader.CountersEntityDAO;
+import ndfv.bookoflifev0.loader.HistoricDAO;
 import ndfv.bookoflifev0.loader.ICountersDAO;
+import ndfv.bookoflifev0.loader.IHistoricDAO;
 
 public class ModeleCounters implements ICounterModel{
 	private static ModeleCounters instance;
@@ -14,6 +16,7 @@ public class ModeleCounters implements ICounterModel{
 	private ArrayList<CounterEntity> countersList;
 	private ArrayList<CounterEntity> countersListActivated;
 	private ICountersDAO counterDAO;
+	private IHistoricDAO historicDAO;
 	
 	private ModeleCounters(){
 		this(null);
@@ -24,8 +27,29 @@ public class ModeleCounters implements ICounterModel{
 		countersListActivated = new ArrayList<CounterEntity>();
 		
 		counterDAO = new CountersEntityDAO(context);
+		historicDAO = new HistoricDAO(context);
+		
+		//Récupération des compteurs
 		countersList = getCountersFromDataBase();
-	} 
+		
+		//Récupération des historiques au chargement du modèle
+		for (CounterEntity counter : countersList) {
+			if(isCreatableHistoric(counter)){
+				historicDAO.insertHistoricDay(counter);
+			}
+			counter.setHistoric(historicDAO.getHistoricDaysByCounterId(counter.getId()));
+		}
+	}
+	
+	public boolean isCreatableHistoric(CounterEntity counter){
+		boolean isCreatable = false;
+		CounterEntity counterBase = counterDAO.getCounterByName(counter);
+		if(counterBase.getLastUpdateDate().before(counter.getLastUpdateDate())){
+			isCreatable = true;
+		}
+		
+		return isCreatable;
+	}
 	
 	public static ModeleCounters getInstance() throws MiteException {
 		if(instance == null){
