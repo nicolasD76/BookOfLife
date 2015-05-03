@@ -104,7 +104,7 @@ public class CountersEntityDAO implements ICountersDAO{
 		counterEntity.setId(cursor.getLong(0));
 		counterEntity.setName(cursor.getString(1));
 		counterEntity.setValue(cursor.getInt(2));
-		counterEntity.setSelected(cursor.getInt(3));
+		counterEntity.setSelectedByInt(cursor.getInt(3));
 		return counterEntity;
 	}
 
@@ -173,5 +173,29 @@ public class CountersEntityDAO implements ICountersDAO{
 				null);	
 		close();
 
+	}
+	
+	@Override
+	public CounterEntity getCounterByName(CounterEntity entity) {
+		open();
+		CounterEntity counterEntityMatch = new CounterEntity();
+	    database = dbHelper.getWritableDatabase();
+
+	    Cursor cursor = database.query(MySQLiteHelper.TABLE_COUNTERS,
+	        allColumns, null, null, null, null, null);
+
+	    cursor.moveToFirst();
+	    while (!cursor.isAfterLast()) {
+	      CounterEntity counterEntity = cursorToCounterEntity(cursor);
+	      if(entity.getName().equals(counterEntity.getName())){
+	    	  counterEntityMatch  = counterEntity;
+	      }
+	      cursor.moveToNext();
+	    }
+	    // assurez-vous de la fermeture du curseur
+	    cursor.close();
+	    close();
+	    return counterEntityMatch;
+	    
 	}
 }

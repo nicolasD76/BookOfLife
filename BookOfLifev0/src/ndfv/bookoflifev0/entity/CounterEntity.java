@@ -43,8 +43,8 @@ public class CounterEntity {
 		this.isSelected = isSelected;
 	}
 	
-	public void setSelected(int isSelected) {
-		if(isSelected == 1){
+	public void setSelectedByInt(int isSelected) {
+		if(isSelected != 0){
 			this.isSelected = true;
 		} else {
 			this.isSelected = false;

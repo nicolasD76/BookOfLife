@@ -64,7 +64,7 @@ public class ModeleCounters implements ICounterModel{
 	@Override
 	public void insertCounter(CounterEntity entity) {
 		counterDAO.insertCounter(entity);
-		countersList.add(entity);
+		countersList.add(counterDAO.getCounterByName(entity));
 	}
 
 	@Override
