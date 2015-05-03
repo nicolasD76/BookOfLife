@@ -61,15 +61,6 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 
 				@Override
 				public boolean onLongClick(View v) {
-//					if (listViewItem.isItemChecked(position)) {
-//						System.out.println("is checked");
-//						listViewItem.setItemChecked(position, false);
-//						((View) listViewItem.getChildAt(position)).setBackgroundColor(ListCountersAdapter.this.getContext().getResources().getColor(R.color.transparent));
-//					} else {
-//						listViewItem.setItemChecked(position, true);
-//						((View) listViewItem.getChildAt(position)).setBackgroundColor(ListCountersAdapter.this.getContext().getResources().getColor(R.color.blue));
-//						System.out.println("is unchecked");
-//					}
 					ModeleCounters counters = null;
 					try {
 						counters = ModeleCounters.getInstance();
@@ -128,6 +119,8 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String[] separated = counter.getStringCreationDate().split(" ");
+		holder.code.setText(" ("+ separated[0] + ")");
 		holder.name.setText(counter.getName());
 		holder.name.setChecked(counter.isSelected());
 
