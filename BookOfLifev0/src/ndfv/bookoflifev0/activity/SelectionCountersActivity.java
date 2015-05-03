@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.bookoflifev0.R;
 
@@ -22,6 +24,7 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 	private Button buttonAddCounter = null;
 	private EditText valueAddCounter = null;
 	private Button buttonDeleteCounter = null;
+	private ListView listviewCounters = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +36,11 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 		buttonAddCounter = (Button) findViewById(R.id.add_button);
 		buttonAddCounter.setOnClickListener(this);
 
-		Button buttonDeleteCounter = (Button) findViewById(R.id.delete_button);
+		buttonDeleteCounter = (Button) findViewById(R.id.delete_button);
 		buttonDeleteCounter.setOnClickListener(this);
 		valueAddCounter = (EditText) findViewById(R.id.add_value);
+		
+		listviewCounters = (ListView) findViewById(android.R.id.list);
 
 		ListCountersAdapter adapter = new ListCountersAdapter(this, android.R.layout.simple_list_item_1, modeleCounters.getCountersList());
 		adapter.notifyDataSetChanged();
@@ -70,23 +75,23 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 				valueAddCounter.setText(null);
 			}
 			break;
-		case R.id.delete_button:
-			System.out.println("size: " + modeleCounters.getCountersList().size());
-			int size = modeleCounters.getCountersList().size();
-			int alreadySuppressed = 0;
-			for (int i = 0; i < size; i++) {
-				System.out.println("name: " + modeleCounters.getCountersList().get(i - alreadySuppressed).getName() + " selected: "
-						+ modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected());
-
-				if (modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected()) {
-					System.out.println("deleted!");
-					modeleCounters.deleteCounter(modeleCounters.getCountersList().get(i - alreadySuppressed));
-					alreadySuppressed = alreadySuppressed + 1;
-					adapter.notifyDataSetChanged();
-					setListAdapter(adapter);
-				}
-			}
-			break;
+//		case R.id.delete_button:
+//			System.out.println("size: " + modeleCounters.getCountersList().size());
+//			int size = modeleCounters.getCountersList().size();
+//			int alreadySuppressed = 0;
+//			for (int i = 0; i < size; i++) {
+//				System.out.println("name: " + modeleCounters.getCountersList().get(i - alreadySuppressed).getName() + " selected: "
+//						+ modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected());
+//
+//				if (modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected()) {
+//					System.out.println("deleted!");
+//					modeleCounters.deleteCounter(modeleCounters.getCountersList().get(i - alreadySuppressed));
+//					alreadySuppressed = alreadySuppressed + 1;
+//					adapter.notifyDataSetChanged();
+//					setListAdapter(adapter);
+//				}
+//			}
+//			break;
 		}
 		adapter.notifyDataSetChanged();
 	}
@@ -104,4 +109,6 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 
 		return can;
 	}
+
+	
 }
