@@ -73,7 +73,7 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 				}
 			});
 
-			convertView.setOnClickListener(new View.OnClickListener() {
+			holder.name.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					ModeleCounters counters = null;
 					try {
