@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.bookoflifev0.R;
+import ndfv.bookoflifev0.bookoflifev0.R;
 
 public class SelectionCountersActivity extends ListActivity implements OnClickListener {
 

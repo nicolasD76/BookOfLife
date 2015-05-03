@@ -5,7 +5,7 @@ import ndfv.bookoflifev0.adapter.ListCountersActivatedAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
 
-import com.example.bookoflifev0.R;
+import ndfv.bookoflifev0.bookoflifev0.R;
 
 import android.app.ListActivity;
 import android.content.Intent;
@@ -28,7 +28,7 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 		setContentView(R.layout.activity_menu_main);
 		compteursButton = (Button) findViewById(R.id.counters_button);
         compteursButton.setOnClickListener(this);
-		statsButton = (Button) findViewById(R.id.stats_button);
+		statsButton = (Button) findViewById(R.id.stats_button); 
 		statsButton.setOnClickListener(this);
 		
 

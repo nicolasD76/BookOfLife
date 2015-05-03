@@ -8,7 +8,7 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 
-import com.example.bookoflifev0.R;
+import ndfv.bookoflifev0.bookoflifev0.R;
 
 public class StatsActivity extends ListActivity  {
 	private ModeleCounters modeleCounters;

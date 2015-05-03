@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bookoflife_widget"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp" >
+
+    <TextView
+        android:id="@+id/nap_time"
+        android:text="Erase me"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_menu_add"
+        style="@style/Widget.Text"/>
+</RelativeLayout>

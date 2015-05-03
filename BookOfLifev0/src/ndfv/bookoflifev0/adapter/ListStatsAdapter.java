@@ -2,7 +2,7 @@ package ndfv.bookoflifev0.adapter;
 
 import java.util.List;
 
-import com.example.bookoflifev0.R;
+import ndfv.bookoflifev0.bookoflifev0.R;
 
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;

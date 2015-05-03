@@ -20,7 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView; 
 import android.widget.Toast;
 
-import com.example.bookoflifev0.R;
+import ndfv.bookoflifev0.bookoflifev0.R;
 
 public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 

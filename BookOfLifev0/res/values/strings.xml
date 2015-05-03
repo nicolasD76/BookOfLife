@@ -11,5 +11,7 @@
     <string name="book_of_life">Book Of Life</string>
     <string name="title_activity_selection_counters">SelectionCountersActivity</string>
     <string name="title_activity_stats">StatsActivity</string>
+    <string name="title_activity_widget_configure">WidgetConfigure</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
