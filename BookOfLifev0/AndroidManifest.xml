@@ -13,44 +13,43 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
-       <!--  START WIDGET -->
-       
-         <!-- BookOfLife widget -->
-        <receiver android:name="ndfv.bookoflifev0.widgetools.BookOfLifeWidget">
+
+        <!-- START WIDGET -->
+
+
+        <!-- BookOfLife widget -->
+        <receiver android:name="ndfv.bookoflifev0.widgetools.BookOfLifeWidget" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="ndfv.bookoflifev0.widgetools.SHOW_NOTIFICATION" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/bookoflife_widget_meta" />
         </receiver>
-        
-        
-        
-        <!--  END WIDGET -->
-        
-        
-         <!-- Configure activity -->
-        <activity android:name="ndfv.bookoflifev0.activity.WidgetConfigure" android:theme="@android:style/Theme.Dialog">
+
+        <!-- END WIDGET -->
+
+
+        <!-- Configure activity -->
+        <activity
+            android:name="ndfv.bookoflifev0.activity.WidgetConfigure"
+            android:theme="@android:style/Theme.Dialog" >
             <intent-filter>
-                
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
-            	<category android:name="android.intent.category.LAUNCHER" />
-                
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="ndfv.bookoflifev0.activity.MenuMainActivity"
             android:label="@string/app_name" >
-             <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                
-            	<category android:name="android.intent.category.LAUNCHER" />
-                
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name="ndfv.bookoflifev0.activity.SelectionCountersActivity"
             android:label="@string/title_activity_selection_counters" >
@@ -62,4 +61,3 @@
     </application>
 
 </manifest>
-

@@ -6,9 +6,8 @@
     android:layout_margin="4dp" >
 
     <TextView
-        android:id="@+id/nap_time"
-        android:text="Erase me"
-        android:layout_width="fill_parent"
+        android:id="@+id/button_widget_add"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:background="@drawable/ic_menu_add"
