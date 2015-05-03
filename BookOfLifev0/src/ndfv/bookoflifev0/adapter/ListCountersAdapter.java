@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -120,23 +122,41 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 			e.printStackTrace();
 		}
 		String[] separated = counter.getStringCreationDate().split(" ");
-		holder.code.setText(" ("+ separated[0] + ")");
+		holder.code.setText(" (" + separated[0] + ")");
 		holder.name.setText(counter.getName());
 		holder.name.setChecked(counter.isSelected());
 
 		return convertView;
 	}
 
-	private void showAlertDialogDelete(CheckBox boxOfCounterToDelete,final CounterEntity counterToDelete) {
+	private void showAlertDialogDelete(CheckBox boxOfCounterToDelete, final CounterEntity counterToDelete) {
 		AlertDialog.Builder dialogDelete = new AlertDialog.Builder(this.getContext());
 		dialogDelete.setTitle("Suppression/modification de compteur");
-		dialogDelete.setMessage("Êtes-vous sûr de vouloir supprimer le compteur: " + boxOfCounterToDelete.getText());
+		dialogDelete.setMessage("Voulez-vous supprimer ou modifier le compteur suivant: " + boxOfCounterToDelete.getText());
 		dialogDelete.setNegativeButton("Supprimer", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				try {
 					ModeleCounters.getInstance().deleteCounter(counterToDelete);
+					notifyDataSetChanged();
+				} catch (MiteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		final EditText input = new EditText(ListCountersAdapter.this.getContext());
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+		input.setLayoutParams(lp);
+		dialogDelete.setView(input);
+		dialogDelete.setPositiveButton("Modifier", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				try {
+					counterToDelete.setName(input.getText().toString());
+					ModeleCounters.getInstance().updateCounter(counterToDelete);
 					notifyDataSetChanged();
 				} catch (MiteException e) {
 					// TODO Auto-generated catch block
