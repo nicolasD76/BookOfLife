@@ -16,8 +16,7 @@ import android.widget.EditText;
 
 import com.example.bookoflifev0.R;
 
-public class SelectionCountersActivity extends ListActivity implements
-		OnClickListener {
+public class SelectionCountersActivity extends ListActivity implements OnClickListener {
 
 	private ModeleCounters modeleCounters = null;
 	private Button buttonAddCounter = null;
@@ -38,11 +37,7 @@ public class SelectionCountersActivity extends ListActivity implements
 		buttonDeleteCounter.setOnClickListener(this);
 		valueAddCounter = (EditText) findViewById(R.id.add_value);
 
-		
-		
-		ListCountersAdapter adapter = new ListCountersAdapter(this,
-				android.R.layout.simple_list_item_1,
-				modeleCounters.getCountersList());
+		ListCountersAdapter adapter = new ListCountersAdapter(this, android.R.layout.simple_list_item_1, modeleCounters.getCountersList());
 		adapter.notifyDataSetChanged();
 		// ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 		// android.R.layout.simple_list_item_1, mStrings);
@@ -68,26 +63,29 @@ public class SelectionCountersActivity extends ListActivity implements
 			// enregistrer le nouveau commentaire dans la base de données
 			modeleCounters.insertCounter(counterEntity);
 			adapter.notifyDataSetChanged();
+			setListAdapter(adapter);
+
 			valueAddCounter.setText(null);
 			break;
 		case R.id.delete_button:
 			System.out.println("size: " + modeleCounters.getCountersList().size());
 			int size = modeleCounters.getCountersList().size();
 			int alreadySuppressed = 0;
-			for(int i = 0; i <size;i++){
-				System.out.println("name: " + modeleCounters.getCountersList().get(i - alreadySuppressed).getName() + " selected: " + modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected());
+			for (int i = 0; i < size; i++) {
+				System.out.println("name: " + modeleCounters.getCountersList().get(i - alreadySuppressed).getName() + " selected: "
+						+ modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected());
 
-				if(modeleCounters.getCountersList().get(i  - alreadySuppressed).isSelected()){
+				if (modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected()) {
 					System.out.println("deleted!");
 					modeleCounters.deleteCounter(modeleCounters.getCountersList().get(i - alreadySuppressed));
 					alreadySuppressed = alreadySuppressed + 1;
 					adapter.notifyDataSetChanged();
-//					setListAdapter(adapter);
+					setListAdapter(adapter);
 				}
 			}
 			break;
 		}
 		adapter.notifyDataSetChanged();
- 
+
 	}
 }
