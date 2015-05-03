@@ -1,15 +1,13 @@
 package ndfv.bookoflifev0.activity;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import ndfv.bookoflifev0.adapter.ListCountersAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
-import ndfv.bookoflifev0.exception.MiteException;
-import ndfv.bookoflifev0.loader.CountersEntityDAO;
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +22,6 @@ public class SelectionCountersActivity extends ListActivity implements
 	private ModeleCounters modeleCounters = null;
 	private Button buttonAddCounter = null;
 	private EditText valueAddCounter = null;
-//	private CountersEntityDAO countersDAO;
 	private Button buttonDeleteCounter = null;
 
 	@Override
@@ -41,10 +38,8 @@ public class SelectionCountersActivity extends ListActivity implements
 		buttonDeleteCounter.setOnClickListener(this);
 		valueAddCounter = (EditText) findViewById(R.id.add_value);
 
-		if (modeleCounters.getCountersList().size() == 0) {
-			modeleCounters.getCountersList().addAll(
-					(Collection<? extends CounterEntity>) modeleCounters.getCounters());
-		}
+		
+		
 		ListCountersAdapter adapter = new ListCountersAdapter(this,
 				android.R.layout.simple_list_item_1,
 				modeleCounters.getCountersList());
@@ -73,7 +68,6 @@ public class SelectionCountersActivity extends ListActivity implements
 			// enregistrer le nouveau commentaire dans la base de données
 			modeleCounters.insertCounter(counterEntity);
 			adapter.notifyDataSetChanged();
-			setListAdapter(adapter);
 			valueAddCounter.setText(null);
 			break;
 		case R.id.delete_button:
@@ -86,7 +80,6 @@ public class SelectionCountersActivity extends ListActivity implements
 				if(modeleCounters.getCountersList().get(i  - alreadySuppressed).isSelected()){
 					System.out.println("deleted!");
 					modeleCounters.deleteCounter(modeleCounters.getCountersList().get(i - alreadySuppressed));
-//					adapter.remove(modeleCounters.getCountersList().get(i - alreadySuppressed));
 					alreadySuppressed = alreadySuppressed + 1;
 					adapter.notifyDataSetChanged();
 //					setListAdapter(adapter);

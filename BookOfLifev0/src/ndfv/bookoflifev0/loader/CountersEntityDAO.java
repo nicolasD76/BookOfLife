@@ -113,7 +113,7 @@ public class CountersEntityDAO implements ICountersDAO{
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_NAME, entity.getName());
 		values.put(MySQLiteHelper.COLUMN_VALUE, 0);
-		values.put(MySQLiteHelper.COLUMN_CHECKED, 0);
+		values.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
 	    open();
 	    long insertId = database.insert(MySQLiteHelper.TABLE_COUNTERS, null,
 	        values);
@@ -123,7 +123,6 @@ public class CountersEntityDAO implements ICountersDAO{
 	    cursor.moveToFirst();
 
 	    CounterEntity newCounterEntity = cursorToCounterEntity(cursor);
-	    Log.d("d", "newCounterEntity name: " + newCounterEntity.getName() +" id: " + newCounterEntity.getId() +" value: " + newCounterEntity.getValue());
 	    cursor.close();
 	    close();
 	}
@@ -139,7 +138,7 @@ public class CountersEntityDAO implements ICountersDAO{
 	}
 
 	@Override
-	public ArrayList<CounterEntity> getCounters() {
+	public ArrayList<CounterEntity> getCountersFromDataBase() {
 		open();
 		ArrayList<CounterEntity> counterEntityList = new ArrayList<CounterEntity>();
 	    database = dbHelper.getWritableDatabase();
@@ -165,13 +164,11 @@ public class CountersEntityDAO implements ICountersDAO{
 		database = dbHelper.getWritableDatabase();
 		long id = entity.getId();
 		ContentValues cv = new ContentValues();
-		// if(counterEntity.isSelected()){
-		cv.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
-		// }else{
-		// cv.put(MySQLiteHelper.COLUMN_CHECKED, 0);
-		// }
+
+
 		cv.put(MySQLiteHelper.COLUMN_NAME, entity.getName());
 		cv.put(MySQLiteHelper.COLUMN_VALUE, entity.getValue());
+		cv.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
 		database.update(MySQLiteHelper.TABLE_COUNTERS, cv, "_id " + "=" + id,
 				null);	
 		close();

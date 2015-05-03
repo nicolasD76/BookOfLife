@@ -77,7 +77,7 @@ public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 		    	 counters.getCountersActivatedList().get(position).setValue(counters.getCountersActivatedList().get(position).getValue() + 1);
 		    	 ListCountersActivatedAdapter.this.notifyDataSetChanged();
 			 
-		    	 countersDAO.updateCounter(counters.getCountersActivatedList().get(position));
+		    	 counters.updateCounter(counters.getCountersActivatedList().get(position));
 		     }  
 		    });   
 		   } 

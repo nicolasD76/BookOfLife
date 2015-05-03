@@ -29,7 +29,6 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 	public ListCountersAdapter(Context context, int textViewResourceId,
 			ArrayList<CounterEntity> countryList) {
 		super(context, textViewResourceId, countryList);
-		countersDAO = new CountersEntityDAO(context);
 	}
 
 	private class ViewHolder {
@@ -64,9 +63,12 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 						e.printStackTrace();
 					}
 		      if(counters.getCountersList().get(position).isSelected()){
-			      counters.getCountersList().get(position).setSelected(false);
+		    	  CounterEntity counter = counters.getCountersList().get(position);
+			      counter.setSelected(false);
+//			      counters.updateCounter(counters.getCountersList().get(position));
+			      Log.d("d", "selected false");
 			      try {
-					ModeleCounters.getInstance().updateCounter(counters.getCountersList().get(position));
+					ModeleCounters.getInstance().updateCounter(counter);
 					notifyDataSetChanged();
 				} catch (MiteException e) {
 					// TODO Auto-generated catch block
@@ -76,6 +78,7 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 			      
 		      }else {
 			      counters.getCountersList().get(position).setSelected(true);
+//			      counters.updateCounter(counters.getCountersList().get(position));
 			      try {
 					ModeleCounters.getInstance().updateCounter(counters.getCountersList().get(position));
 					notifyDataSetChanged();

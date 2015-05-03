@@ -24,6 +24,7 @@ public class ModeleCounters implements ICounterModel{
 		countersListActivated = new ArrayList<CounterEntity>();
 		
 		counterDAO = new CountersEntityDAO(context);
+		countersList = getCountersFromDataBase();
 	} 
 	
 	public static ModeleCounters getInstance() throws MiteException {
@@ -73,15 +74,15 @@ public class ModeleCounters implements ICounterModel{
 	}
 
 	@Override
-	public ArrayList<CounterEntity> getCounters() {
-		countersList = counterDAO.getCounters();
+	public ArrayList<CounterEntity> getCountersFromDataBase() {
+		countersList = counterDAO.getCountersFromDataBase();
 		return countersList;
 	}
 
 	@Override
 	public void updateCounter(CounterEntity entity) {
 		counterDAO.updateCounter(entity);
-		countersList.set(countersList.indexOf(entity), entity);
+//		countersList.set(countersList.indexOf(entity), entity);
 	}
 	
 }

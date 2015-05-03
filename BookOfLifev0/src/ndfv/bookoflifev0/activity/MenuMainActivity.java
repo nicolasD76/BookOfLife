@@ -22,12 +22,8 @@ import android.widget.Button;
 public class MenuMainActivity extends ListActivity implements OnClickListener{
 	private Button compteursButton = null;
 	private Button statsButton = null;
-	private CountersEntityDAO countersDAO;
 	
 	private ModeleCounters counters;
-
-//	private int numberOfCompteur = 0;
-//	private String compteurLabel = "Compteur";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +34,15 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 		statsButton = (Button) findViewById(R.id.stats_button);
 		statsButton.setOnClickListener(this);
 		
-		countersDAO = new CountersEntityDAO(this);
 
 		counters = ModeleCounters.getInstance(this);
 		
-		if (counters.getCountersList().size() == 0) {
-			counters.getCountersList().addAll(
-					(Collection<? extends CounterEntity>) counters.getCountersActivatedList());
-		}
+//		if (counters.getCountersList().size() == 0) {
+//			counters.getCountersList().addAll(
+//					(Collection<? extends CounterEntity>) counters.getCountersActivatedList());
+//		}
+		
+		
 		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,
 				android.R.layout.simple_list_item_1,
 				counters.getCountersActivatedList());
@@ -75,11 +72,6 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 	
 	@Override
 	protected void onResume() {
-//		countersDAO.open();
-		if (counters.getCountersList().size() == 0) {
-			counters.getCounters().addAll(
-					(Collection<? extends CounterEntity>) counters.getCountersActivatedList());
-		}
 		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,
 				android.R.layout.simple_list_item_1,
 				counters.getCountersActivatedList());
@@ -90,13 +82,11 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 
 	@Override
 	protected void onPause() {
-//		countersDAO.close();
 		super.onPause();
 	}
 	
 	
 	public void onButtonCompteursClick(){
-//		numberOfCompteur = numberOfCompteur + 1;
 		Intent activitySelectionCounters = new Intent(this,SelectionCountersActivity.class);
 		startActivity(activitySelectionCounters);
 	}

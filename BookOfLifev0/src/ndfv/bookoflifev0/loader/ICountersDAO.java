@@ -8,5 +8,5 @@ public interface ICountersDAO {
 	void insertCounter(CounterEntity entity);
 	void deleteCounter(CounterEntity entity);
 	void updateCounter(CounterEntity entity);
-	ArrayList<CounterEntity> getCounters();
+	ArrayList<CounterEntity> getCountersFromDataBase();
 }

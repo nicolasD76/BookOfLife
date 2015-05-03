@@ -47,7 +47,7 @@ public class CounterEntity {
 		if(isSelected == 1){
 			this.isSelected = true;
 		} else {
-			this.isSelected = true;
+			this.isSelected = false;
 		}
 	}
 
