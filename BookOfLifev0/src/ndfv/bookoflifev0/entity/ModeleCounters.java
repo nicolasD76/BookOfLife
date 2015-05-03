@@ -95,6 +95,7 @@ public class ModeleCounters implements ICounterModel{
 		for(int i=0;i<countersList.size();i++){
 			if(countersList.get(i).getId() != counterWidget.getId()){
 				countersList.get(i).setWidgetCounter(false);
+				counterDAO.updateCounter(countersList.get(i));
 			}
 		}
 	}
