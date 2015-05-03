@@ -39,10 +39,19 @@ public class CounterEntity {
 		this.historic = historic;
 	}
 
-
-
 	public CounterEntity() {
 		this("unknows", false, -1);
+	}
+	
+	
+	
+
+	public SimpleDateFormat getDateFormat() {
+		return dateFormat;
+	}
+
+	public void setDateFormat(SimpleDateFormat dateFormat) {
+		this.dateFormat = dateFormat;
 	}
 
 	public String getStringCreationDate(){ 

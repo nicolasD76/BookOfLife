@@ -1,6 +1,7 @@
 package ndfv.bookoflifev0.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 
@@ -44,7 +45,12 @@ public class ModeleCounters implements ICounterModel{
 	public boolean isCreatableHistoric(CounterEntity counter){
 		boolean isCreatable = false;
 		CounterEntity counterBase = counterDAO.getCounterByName(counter);
-		if(counterBase.getLastUpdateDate().before(counter.getLastUpdateDate())){
+		
+		String lastUpdateInBase = counterBase.getStringLastUpdateDate();
+		int dayNumber = Integer.parseInt(lastUpdateInBase.split("-")[1]);
+		String today = counterBase.getDateFormat().format(new Date());
+		int todayNumber = Integer.parseInt(today.split("-")[1]);
+		if(counterBase.getLastUpdateDate().before(new Date()) && dayNumber != todayNumber){
 			isCreatable = true;
 		}
 		

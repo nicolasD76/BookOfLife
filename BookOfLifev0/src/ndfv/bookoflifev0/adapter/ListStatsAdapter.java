@@ -59,7 +59,7 @@ public class ListStatsAdapter extends ArrayAdapter<CounterEntity>{
 	   holder.stat_value.setText(String.valueOf(counter.getValue()));
 	   
 	   if(counter.getHistoric().size() > 0){
-		   holder.historic_value.setText(String.valueOf(counter.getHistoric().get(0).getCounter_value()));
+		   holder.historic_value.setText(String.valueOf(counter.getHistoric().size()));
 	   }
 	 
 	   return convertView;
