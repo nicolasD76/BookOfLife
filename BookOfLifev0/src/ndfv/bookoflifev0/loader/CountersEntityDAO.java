@@ -11,7 +11,7 @@ import android.database.Cursor;
 public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 	private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
 			MySQLiteHelper.COLUMN_NAME, MySQLiteHelper.COLUMN_VALUE,
-			MySQLiteHelper.COLUMN_CHECKED, MySQLiteHelper.COLUMN_CREATION_DATE,
+			MySQLiteHelper.COLUMN_CHECKED, MySQLiteHelper.COLUMN_ISWIDGET, MySQLiteHelper.COLUMN_CREATION_DATE,
 			MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, MySQLiteHelper.COLUMN_LAST_UPDATE_DATE };
 
 	public CountersEntityDAO(Context context) {
@@ -24,8 +24,9 @@ public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 		counterEntity.setName(cursor.getString(1));
 		counterEntity.setValue(cursor.getInt(2));
 		counterEntity.setSelectedByInt(cursor.getInt(3));
-		counterEntity.setCreationDateByString(cursor.getString(4));
-		counterEntity.setLastUpdateDateByString(cursor.getString(5));
+		counterEntity.setWidgetCounterByInt(cursor.getInt(4));
+		counterEntity.setCreationDateByString(cursor.getString(5));
+		counterEntity.setLastUpdateDateByString(cursor.getString(6));
 		return counterEntity;
 	}
 
@@ -37,6 +38,8 @@ public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 		values.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
 		values.put(MySQLiteHelper.COLUMN_CREATION_DATE, entity.getStringCreationDate());
 		values.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, entity.getStringLastUpdateDate());
+		values.put(MySQLiteHelper.COLUMN_ISWIDGET, entity.isWidgetCounter());
+
 		
 	    open();
 	    long insertId = database.insert(MySQLiteHelper.TABLE_COUNTERS, null,
@@ -93,6 +96,7 @@ public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 		cv.put(MySQLiteHelper.COLUMN_NAME, entity.getName());
 		cv.put(MySQLiteHelper.COLUMN_VALUE, entity.getValue());
 		cv.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
+		cv.put(MySQLiteHelper.COLUMN_ISWIDGET, entity.isWidgetCounter());
 		cv.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, entity.getStringLastUpdateDate());
 		database.update(MySQLiteHelper.TABLE_COUNTERS, cv, "_id " + "=" + id,
 				null);	

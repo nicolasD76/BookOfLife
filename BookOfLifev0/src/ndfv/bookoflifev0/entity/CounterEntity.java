@@ -10,6 +10,7 @@ public class CounterEntity {
 	private long id = -1;
 	private String name = null;
 	private boolean isSelected = false;
+	private boolean isWidgetCounter = false;
 	private double value;
 	private Date creationDate;
 	private Date lastUpdateDate;
@@ -17,10 +18,11 @@ public class CounterEntity {
 	
 	private ArrayList<HistoricDay> historic;
 
-	public CounterEntity(String name, boolean isSelected, long id) {
+	public CounterEntity(String name, boolean isSelected, long id,boolean isWidgetCounter) {
 		super();
 		this.name = name;
 		this.isSelected = isSelected;
+		this.isWidgetCounter = isWidgetCounter;
 		this.id = id;
 		this.value = 1;
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -39,13 +41,12 @@ public class CounterEntity {
 		this.historic = historic;
 	}
 
+
+
 	public CounterEntity() {
-		this("unknows", false, -1);
+		this("unknows", false, -1,false);
 	}
 	
-	
-	
-
 	public SimpleDateFormat getDateFormat() {
 		return dateFormat;
 	}
@@ -53,6 +54,7 @@ public class CounterEntity {
 	public void setDateFormat(SimpleDateFormat dateFormat) {
 		this.dateFormat = dateFormat;
 	}
+
 
 	public String getStringCreationDate(){ 
 		return dateFormat.format(creationDate);
@@ -141,4 +143,20 @@ public class CounterEntity {
 		this.id = id;
 	}
 
+	public boolean isWidgetCounter() {
+		return isWidgetCounter;
+	}
+
+	public void setWidgetCounter(boolean isWidgetCounter) {
+		this.isWidgetCounter = isWidgetCounter;
+	}
+	
+	public void setWidgetCounterByInt(int isWidgetCounter) {
+		if(isWidgetCounter != 0){
+			this.isWidgetCounter = true;
+		} else {
+			this.isWidgetCounter = false;
+		}
+	}
+	
 }

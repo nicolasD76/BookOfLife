@@ -90,6 +90,25 @@ public class ModeleCounters implements ICounterModel{
 		}
 		return countersListActivated;
 	}
+	
+	public void disableOthersBooleanWidget(CounterEntity counterWidget) {
+		for(int i=0;i<countersList.size();i++){
+			if(countersList.get(i).getId() != counterWidget.getId()){
+				countersList.get(i).setWidgetCounter(false);
+			}
+		}
+	}
+	
+	public CounterEntity getCounterActivatedWidget() {
+		CounterEntity counterWidget = null;
+		for(int i=0;i<countersList.size();i++){
+			if(countersList.get(i).isWidgetCounter()){
+				counterWidget = countersList.get(i);
+				break;
+			}
+		}
+		return counterWidget;
+	}
 
 	@Override
 	public void insertCounter(CounterEntity entity) {

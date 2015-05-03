@@ -29,7 +29,6 @@ import ndfv.bookoflifev0.bookoflifev0.R;
 
 public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 
-	private CountersEntityDAO countersDAO;
 	private ListView listViewItem = null;
 
 	public ListCountersAdapter(Context context, int textViewResourceId, ArrayList<CounterEntity> countryList) {
