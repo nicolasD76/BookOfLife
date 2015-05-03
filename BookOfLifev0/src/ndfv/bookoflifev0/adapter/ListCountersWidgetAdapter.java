@@ -62,7 +62,6 @@ public class ListCountersWidgetAdapter extends ArrayAdapter<CounterEntity> {
 						counterToActivateForWidget = counters.getCountersList().get(position);
 						if(counterToActivateForWidget.isWidgetCounter()){
 							counterToActivateForWidget.setWidgetCounter(false);
-							counters.disableOthersBooleanWidget(counterToActivateForWidget);
 						}else{
 							counterToActivateForWidget.setWidgetCounter(true);
 							counters.disableOthersBooleanWidget(counterToActivateForWidget);
