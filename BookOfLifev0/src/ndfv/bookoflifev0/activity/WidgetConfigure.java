@@ -41,8 +41,6 @@ public class WidgetConfigure extends Activity {
 		Intent resultValue = new Intent();
 		resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
 		setResult(RESULT_OK, resultValue);
-//		Intent menuMain = new Intent(this,MenuMainActivity.class);
-//		startActivity(menuMain);
 		finish();
 
 	}

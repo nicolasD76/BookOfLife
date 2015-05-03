@@ -29,8 +29,6 @@ import ndfv.bookoflifev0.bookoflifev0.R;
 
 public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 
-	private ListView listViewItem = null;
-
 	public ListCountersAdapter(Context context, int textViewResourceId, ArrayList<CounterEntity> countryList) {
 		super(context, textViewResourceId, countryList);
 	}
@@ -54,9 +52,6 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 			holder.name = (CheckBox) convertView.findViewById(R.id.check_box_counters);
 			convertView.setTag(holder);
 
-			listViewItem = (ListView) parent;
-			listViewItem.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-			// parent.setOnLongClickListener(this);
 			final ViewHolder holderForListenner = holder;
 			convertView.setOnLongClickListener(new OnLongClickListener() {
 
