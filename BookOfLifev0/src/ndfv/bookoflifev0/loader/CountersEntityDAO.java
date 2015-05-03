@@ -20,10 +20,6 @@ public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 
 	private CounterEntity cursorToCounterEntity(Cursor cursor) {
 		CounterEntity counterEntity = new CounterEntity();
-		System.out.println("#debug " + cursor.getLong(4));
-		System.out.println("#debug ----------------");
-
-
 		counterEntity.setId(cursor.getLong(0));
 		counterEntity.setName(cursor.getString(1));
 		counterEntity.setValue(cursor.getInt(2));
