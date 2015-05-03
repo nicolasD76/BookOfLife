@@ -58,14 +58,16 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 		CounterEntity counterEntity = null;
 		switch (v.getId()) {
 		case R.id.add_button:
-			counterEntity = new CounterEntity();
-			counterEntity.setName(valueAddCounter.getText().toString());
-			// enregistrer le nouveau commentaire dans la base de données
-			modeleCounters.insertCounter(counterEntity);
-			adapter.notifyDataSetChanged();
-			setListAdapter(adapter);
-
-			valueAddCounter.setText(null);
+			String name = valueAddCounter.getText().toString();
+			if (canCreatedCounterByName(name)) {
+				counterEntity = new CounterEntity();
+				counterEntity.setName(name);
+				// enregistrer le nouveau commentaire dans la base de données
+				modeleCounters.insertCounter(counterEntity);
+				adapter.notifyDataSetChanged();
+				setListAdapter(adapter);
+				valueAddCounter.setText(null);
+			}
 			break;
 		case R.id.delete_button:
 			System.out.println("size: " + modeleCounters.getCountersList().size());
@@ -86,6 +88,19 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 			break;
 		}
 		adapter.notifyDataSetChanged();
+	}
 
+	public boolean canCreatedCounterByName(String name) {
+		boolean can = true;
+		int index = 0;
+		int size = modeleCounters.getCountersList().size();
+		while (can && index < size) {
+			if (modeleCounters.getCountersList().get(index).getName().equals(name)) {
+				can = false;
+			}
+			index++;
+		}
+
+		return can;
 	}
 }
