@@ -61,6 +61,7 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 			String name = valueAddCounter.getText().toString();
 			if (canCreatedCounterByName(name)) {
 				counterEntity = new CounterEntity();
+				Log.d("d", counterEntity.getStringLastUpdateDate());
 				counterEntity.setName(name);
 				// enregistrer le nouveau commentaire dans la base de données
 				modeleCounters.insertCounter(counterEntity);

@@ -1,7 +1,6 @@
 package ndfv.bookoflifev0.loader;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ndfv.bookoflifev0.entity.CounterEntity;
 
@@ -10,7 +9,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 public class CountersEntityDAO implements ICountersDAO{
 
@@ -19,7 +17,8 @@ public class CountersEntityDAO implements ICountersDAO{
 	private MySQLiteHelper dbHelper;
 	private String[] allColumns = { MySQLiteHelper.COLUMN_ID,
 			MySQLiteHelper.COLUMN_NAME, MySQLiteHelper.COLUMN_VALUE,
-			MySQLiteHelper.COLUMN_CHECKED };
+			MySQLiteHelper.COLUMN_CHECKED, MySQLiteHelper.COLUMN_CREATION_DATE,
+			MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, MySQLiteHelper.COLUMN_LAST_UPDATE_DATE };
 
 	public CountersEntityDAO(Context context) {
 		dbHelper = new MySQLiteHelper(context);
@@ -33,78 +32,14 @@ public class CountersEntityDAO implements ICountersDAO{
 		dbHelper.close();
 	}
 
-	public CounterEntity createCounterEntity(CounterEntity counterEntity) {
-		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COLUMN_NAME, counterEntity.getName());
-		values.put(MySQLiteHelper.COLUMN_VALUE, 0);
-		values.put(MySQLiteHelper.COLUMN_CHECKED, 0);
-	    open();
-		long insertId = database.insert(MySQLiteHelper.TABLE_COUNTERS, null,
-				values);
-		Cursor cursor = database.query(MySQLiteHelper.TABLE_COUNTERS,
-				allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-				null, null, null);
-		cursor.moveToFirst();
-
-		CounterEntity newCounterEntity = cursorToCounterEntity(cursor);
-		Log.d("d", "newCounterEntity name: " + newCounterEntity.getName()
-				+ " id: " + newCounterEntity.getId() + " value: "
-				+ newCounterEntity.getValue());
-		cursor.close();
-	    close();
-		return newCounterEntity;
-	}
-
-	public void deleteComment(CounterEntity counterEntity) {
-		  open();
-		long id = counterEntity.getId();
-		System.out.println("Comment deleted with id: " + id);
-		database.delete(MySQLiteHelper.TABLE_COUNTERS, MySQLiteHelper.COLUMN_ID
-				+ " = " + id, null);
-	    close();
-	}
-
-	public List<CounterEntity> getAllCounterEntity() {
-		  open();
-		List<CounterEntity> counterEntityList = new ArrayList<CounterEntity>();
-		database = dbHelper.getWritableDatabase();
-
-		Cursor cursor = database.query(MySQLiteHelper.TABLE_COUNTERS,
-				allColumns, null, null, null, null, null);
-
-		cursor.moveToFirst();
-		while (!cursor.isAfterLast()) {
-			CounterEntity counterEntity = cursorToCounterEntity(cursor);
-			counterEntityList.add(counterEntity);
-			cursor.moveToNext();
-		}
-		// assurez-vous de la fermeture du curseur
-		cursor.close();
-	    close();
-		return counterEntityList;
-	}
-
-//	public void upDateData(CounterEntity counterEntity) {
-//		database = dbHelper.getWritableDatabase();
-//		long id = counterEntity.getId();
-//		ContentValues cv = new ContentValues();
-//		// if(counterEntity.isSelected()){
-//		cv.put(MySQLiteHelper.COLUMN_CHECKED, counterEntity.isSelected());
-//		// }else{
-//		// cv.put(MySQLiteHelper.COLUMN_CHECKED, 0);
-//		// }
-//		cv.put(MySQLiteHelper.COLUMN_NAME, counterEntity.getName());
-//		cv.put(MySQLiteHelper.COLUMN_VALUE, counterEntity.getValue());
-//		database.update(MySQLiteHelper.TABLE_COUNTERS, cv, "_id " + "=" + id,
-//				null);
-//	}
-
 	private CounterEntity cursorToCounterEntity(Cursor cursor) {
 		CounterEntity counterEntity = new CounterEntity();
 		counterEntity.setId(cursor.getLong(0));
 		counterEntity.setName(cursor.getString(1));
 		counterEntity.setValue(cursor.getInt(2));
 		counterEntity.setSelectedByInt(cursor.getInt(3));
+		counterEntity.setCreationDateByString(cursor.getString(4));
+		counterEntity.setLastUpdateDateByString(cursor.getString(5));
 		return counterEntity;
 	}
 
@@ -114,6 +49,9 @@ public class CountersEntityDAO implements ICountersDAO{
 		values.put(MySQLiteHelper.COLUMN_NAME, entity.getName());
 		values.put(MySQLiteHelper.COLUMN_VALUE, 0);
 		values.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
+		values.put(MySQLiteHelper.COLUMN_CREATION_DATE, entity.getStringCreationDate());
+		values.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, entity.getStringLastUpdateDate());
+		
 	    open();
 	    long insertId = database.insert(MySQLiteHelper.TABLE_COUNTERS, null,
 	        values);
@@ -169,6 +107,7 @@ public class CountersEntityDAO implements ICountersDAO{
 		cv.put(MySQLiteHelper.COLUMN_NAME, entity.getName());
 		cv.put(MySQLiteHelper.COLUMN_VALUE, entity.getValue());
 		cv.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
+		cv.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, entity.getStringLastUpdateDate());
 		database.update(MySQLiteHelper.TABLE_COUNTERS, cv, "_id " + "=" + id,
 				null);	
 		close();

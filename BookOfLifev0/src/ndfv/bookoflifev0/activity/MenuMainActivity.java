@@ -1,19 +1,16 @@
 package ndfv.bookoflifev0.activity;
 
-import java.util.Collection;
 
 import ndfv.bookoflifev0.adapter.ListCountersActivatedAdapter;
-import ndfv.bookoflifev0.adapter.ListCountersAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
-import ndfv.bookoflifev0.loader.CountersEntityDAO;
 
 import com.example.bookoflifev0.R;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,10 +34,10 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 
 		counters = ModeleCounters.getInstance(this);
 		
-//		if (counters.getCountersList().size() == 0) {
-//			counters.getCountersList().addAll(
-//					(Collection<? extends CounterEntity>) counters.getCountersActivatedList());
-//		}
+		if(counters.getCountersList().size() > 0){
+			CounterEntity entity = counters.getCountersList().get(0);
+			Log.d("d init", entity.getStringLastUpdateDate());
+		}
 		
 		
 		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,
