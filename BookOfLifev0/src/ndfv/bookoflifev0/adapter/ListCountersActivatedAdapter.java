@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
+import ndfv.bookoflifev0.exception.MiteException;
+import ndfv.bookoflifev0.loader.CountersEntityDAO;
 
 import android.content.Context;
 import android.util.Log;
@@ -39,7 +41,13 @@ public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 	public View getView(final int position, View convertView, ViewGroup parent) {
 
 		ViewHolder holder = null;
-		   CounterEntity counter = ModeleCounters.getInstance().getCountersActivatedList().get(position);
+		   CounterEntity counter = null;
+		try {
+			counter = ModeleCounters.getInstance().getCountersActivatedList().get(position);
+		} catch (MiteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		   if (convertView == null) {
 		   LayoutInflater vi = (LayoutInflater)getContext().getSystemService(
@@ -54,8 +62,17 @@ public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 
 		 
 		    holder.incremente.setOnClickListener( new View.OnClickListener() {  
-		     public void onClick(View v) {  
-		    	 ModeleCounters.getInstance().getCountersActivatedList().get(position).setValue(ModeleCounters.getInstance().getCountersActivatedList().get(position).getValue() + 1);
+		     public void onClick(View v) { 
+		    	 ModeleCounters counters = null;
+		    	 CounterEntity counter = null;
+		    	 try {
+		    		 counters = ModeleCounters.getInstance();
+		    		 counter = ModeleCounters.getInstance().getCountersActivatedList().get(position);
+		 		} catch (MiteException e) {
+		 			// TODO Auto-generated catch block
+		 			e.printStackTrace();
+		 		}
+		    	 counters.getCountersActivatedList().get(position).setValue(counters.getCountersActivatedList().get(position).getValue() + 1);
 		    	 ListCountersActivatedAdapter.this.notifyDataSetChanged();
 		     }  
 		    });   

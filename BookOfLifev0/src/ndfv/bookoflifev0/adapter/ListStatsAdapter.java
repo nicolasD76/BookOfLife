@@ -6,6 +6,7 @@ import com.example.bookoflifev0.R;
 
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
+import ndfv.bookoflifev0.exception.MiteException;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,13 @@ public class ListStatsAdapter extends ArrayAdapter<CounterEntity>{
 		   holder = (ViewHolder) convertView.getTag();
 	   }
 	 
-	   CounterEntity counter = ModeleCounters.getInstance().getCountersList().get(position);
+	   CounterEntity counter = null;
+	try {
+		counter = ModeleCounters.getInstance().getCountersList().get(position);
+	} catch (MiteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	   holder.libelle_Stat.setText(counter.getName());
 	   holder.stat_value.setText(String.valueOf(counter.getValue()));
 	 

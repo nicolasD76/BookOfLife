@@ -3,6 +3,7 @@ package ndfv.bookoflifev0.activity;
 import ndfv.bookoflifev0.adapter.ListStatsAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
+import ndfv.bookoflifev0.exception.MiteException;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,8 +18,7 @@ public class StatsActivity extends ListActivity  {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stats);
 		
-		//Récupération du modèle
-		modeleCounters = ModeleCounters.getInstance();
+		modeleCounters = ModeleCounters.getInstance(this);
 		
 		ListStatsAdapter adapter = new ListStatsAdapter(this,
 				android.R.layout.simple_list_item_1, modeleCounters.getCountersList());

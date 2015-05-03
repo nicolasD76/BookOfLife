@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
+import ndfv.bookoflifev0.exception.MiteException;
 
 import android.content.Context;
 import android.util.Log;
@@ -52,13 +53,20 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		    holder.name.setOnClickListener( new View.OnClickListener() {  
 		     public void onClick(View v) {   
 		      CheckBox cb = (CheckBox) v ; 
-		      System.out.println("pass in clicklistener before: " + ModeleCounters.getInstance().getCountersList().get(position).isSelected() + " position: " + position);
-		      if(ModeleCounters.getInstance().getCountersList().get(position).isSelected()){
-			      ModeleCounters.getInstance().getCountersList().get(position).setSelected(false);
+		      ModeleCounters counters = null;
+			try {
+				counters = ModeleCounters.getInstance();
+			} catch (MiteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		      System.out.println("pass in clicklistener before: " + counters.getCountersList().get(position).isSelected() + " position: " + position);
+		      if(counters.getCountersList().get(position).isSelected()){
+			      counters.getCountersList().get(position).setSelected(false);
 		      }else {
-			      ModeleCounters.getInstance().getCountersList().get(position).setSelected(true);
+			      counters.getCountersList().get(position).setSelected(true);
 		      }
-		      System.out.println("pass in clicklistener after: " + ModeleCounters.getInstance().getCountersList().get(position).isSelected());
+		      System.out.println("pass in clicklistener after: " + counters.getCountersList().get(position).isSelected());
 		     }  
 		    });   
 		   } 
@@ -66,7 +74,13 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		    holder = (ViewHolder) convertView.getTag();
 		   }
 		 
-		   CounterEntity counter = ModeleCounters.getInstance().getCountersList().get(position);
+		   CounterEntity counter = null;
+		try {
+			counter = ModeleCounters.getInstance().getCountersList().get(position);
+		} catch (MiteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		   holder.name.setText(counter.getName());
 		   holder.name.setChecked(counter.isSelected());
 		 

@@ -6,6 +6,7 @@ import java.util.Collection;
 import ndfv.bookoflifev0.adapter.ListCountersAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
+import ndfv.bookoflifev0.exception.MiteException;
 import ndfv.bookoflifev0.loader.CountersEntityDAO;
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -23,7 +24,7 @@ public class SelectionCountersActivity extends ListActivity implements
 	private ModeleCounters modeleCounters = null;
 	private Button buttonAddCounter = null;
 	private EditText valueAddCounter = null;
-	private CountersEntityDAO countersDAO;
+//	private CountersEntityDAO countersDAO;
 	private Button buttonDeleteCounter = null;
 
 	@Override
@@ -31,8 +32,7 @@ public class SelectionCountersActivity extends ListActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_selection_counters);
 
-		modeleCounters = ModeleCounters.getInstance();
-		countersDAO = new CountersEntityDAO(this);
+		modeleCounters = ModeleCounters.getInstance(this);
 
 		buttonAddCounter = (Button) findViewById(R.id.add_button);
 		buttonAddCounter.setOnClickListener(this);
@@ -43,8 +43,7 @@ public class SelectionCountersActivity extends ListActivity implements
 
 		if (modeleCounters.getCountersList().size() == 0) {
 			modeleCounters.getCountersList().addAll(
-					(Collection<? extends CounterEntity>) countersDAO
-							.getAllCounterEntity());
+					(Collection<? extends CounterEntity>) modeleCounters.getCounters());
 		}
 		ListCountersAdapter adapter = new ListCountersAdapter(this,
 				android.R.layout.simple_list_item_1,
@@ -72,43 +71,30 @@ public class SelectionCountersActivity extends ListActivity implements
 			counterEntity = new CounterEntity();
 			counterEntity.setName(valueAddCounter.getText().toString());
 			// enregistrer le nouveau commentaire dans la base de données
-			counterEntity = countersDAO.createCounterEntity(counterEntity);
-			modeleCounters.getCountersList().add(counterEntity);
+			modeleCounters.insertCounter(counterEntity);
 			adapter.notifyDataSetChanged();
 			setListAdapter(adapter);
 			valueAddCounter.setText(null);
 			break;
 		case R.id.delete_button:
-			System.out.println("size: " + ModeleCounters.getInstance().getCountersList().size());
-			int size = ModeleCounters.getInstance().getCountersList().size();
+			System.out.println("size: " + modeleCounters.getCountersList().size());
+			int size = modeleCounters.getCountersList().size();
 			int alreadySuppressed = 0;
 			for(int i = 0; i <size;i++){
-				System.out.println("name: " + ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed).getName() + " selected: " + ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed).isSelected());
+				System.out.println("name: " + modeleCounters.getCountersList().get(i - alreadySuppressed).getName() + " selected: " + modeleCounters.getCountersList().get(i - alreadySuppressed).isSelected());
 
-				if(ModeleCounters.getInstance().getCountersList().get(i  - alreadySuppressed).isSelected()){
+				if(modeleCounters.getCountersList().get(i  - alreadySuppressed).isSelected()){
 					System.out.println("deleted!");
-					countersDAO.deleteComment(ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed));
-					adapter.remove(ModeleCounters.getInstance().getCountersList().get(i - alreadySuppressed));
+					modeleCounters.deleteCounter(modeleCounters.getCountersList().get(i - alreadySuppressed));
+//					adapter.remove(modeleCounters.getCountersList().get(i - alreadySuppressed));
 					alreadySuppressed = alreadySuppressed + 1;
 					adapter.notifyDataSetChanged();
-					setListAdapter(adapter);
+//					setListAdapter(adapter);
 				}
 			}
 			break;
 		}
 		adapter.notifyDataSetChanged();
  
-	}
-
-	@Override
-	protected void onResume() {
-		countersDAO.open();
-		super.onResume();
-	}
-
-	@Override
-	protected void onPause() {
-		countersDAO.close();
-		super.onPause();
 	}
 }

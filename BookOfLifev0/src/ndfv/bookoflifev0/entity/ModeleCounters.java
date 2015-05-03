@@ -2,20 +2,41 @@ package ndfv.bookoflifev0.entity;
 
 import java.util.ArrayList;
 
-public class ModeleCounters {
+import android.content.Context;
+
+import ndfv.bookoflifev0.exception.MiteException;
+import ndfv.bookoflifev0.loader.CountersEntityDAO;
+import ndfv.bookoflifev0.loader.ICountersDAO;
+
+public class ModeleCounters implements ICounterModel{
 	private static ModeleCounters instance;
 	
 	private ArrayList<CounterEntity> countersList;
 	private ArrayList<CounterEntity> countersListActivated;
+	private ICountersDAO counterDAO;
 	
 	private ModeleCounters(){
-		countersList = new ArrayList<CounterEntity>();
-		countersListActivated = new ArrayList<CounterEntity>();
+		this(null);
 	} 
 	
-	public static ModeleCounters getInstance(){
+	private ModeleCounters(Context context){
+		countersList = new ArrayList<CounterEntity>();
+		countersListActivated = new ArrayList<CounterEntity>();
+		
+		counterDAO = new CountersEntityDAO(context);
+	} 
+	
+	public static ModeleCounters getInstance() throws MiteException {
 		if(instance == null){
-			instance = new ModeleCounters();
+			throw new MiteException("Error !! You have to create the ModeleCounter class with a context. Use getInstance(Context context) before ! ;) ");
+		}
+		
+		return instance;
+	}
+	
+	public static ModeleCounters getInstance(Context context){
+		if(instance == null){
+			instance = new ModeleCounters(context);
 		}
 		
 		return instance;
@@ -38,5 +59,23 @@ public class ModeleCounters {
 		}
 		return countersListActivated;
 	}
-	 
+
+	@Override
+	public void insertCounter(CounterEntity entity) {
+		counterDAO.insertCounter(entity);
+		countersList.add(entity);
+	}
+
+	@Override
+	public void deleteCounter(CounterEntity entity) {
+		counterDAO.deleteCounter(entity);
+		countersList.remove(entity);
+	}
+
+	@Override
+	public ArrayList<CounterEntity> getCounters() {
+		countersList = counterDAO.getCounters();
+		return countersList;
+	}
+	
 }

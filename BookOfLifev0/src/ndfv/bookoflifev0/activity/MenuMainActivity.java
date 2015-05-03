@@ -23,6 +23,8 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 	private Button compteursButton = null;
 	private Button statsButton = null;
 	private CountersEntityDAO countersDAO;
+	
+	private ModeleCounters counters;
 
 //	private int numberOfCompteur = 0;
 //	private String compteurLabel = "Compteur";
@@ -36,17 +38,17 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 		statsButton = (Button) findViewById(R.id.stats_button);
 		statsButton.setOnClickListener(this);
 		
-		countersDAO = new CountersEntityDAO(this);
+//		countersDAO = new CountersEntityDAO(this);
 
+		counters = ModeleCounters.getInstance(this);
 		
-		if (ModeleCounters.getInstance().getCountersList().size() == 0) {
-			ModeleCounters.getInstance().getCountersList().addAll(
-					(Collection<? extends CounterEntity>) countersDAO
-							.getAllCounterEntity());
+		if (counters.getCountersList().size() == 0) {
+			counters.getCountersList().addAll(
+					(Collection<? extends CounterEntity>) counters.getCountersActivatedList());
 		}
 		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,
 				android.R.layout.simple_list_item_1,
-				ModeleCounters.getInstance().getCountersActivatedList());
+				counters.getCountersActivatedList());
 		adapter.notifyDataSetChanged();
 		setListAdapter(adapter);
 
@@ -73,15 +75,14 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 	
 	@Override
 	protected void onResume() {
-		countersDAO.open();
-		if (ModeleCounters.getInstance().getCountersList().size() == 0) {
-			ModeleCounters.getInstance().getCountersList().addAll(
-					(Collection<? extends CounterEntity>) countersDAO
-							.getAllCounterEntity());
+//		countersDAO.open();
+		if (counters.getCountersList().size() == 0) {
+			counters.getCountersList().addAll(
+					(Collection<? extends CounterEntity>) counters.getCountersActivatedList());
 		}
 		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this,
 				android.R.layout.simple_list_item_1,
-				ModeleCounters.getInstance().getCountersActivatedList());
+				counters.getCountersActivatedList());
 		adapter.notifyDataSetChanged();
 		setListAdapter(adapter);
 		super.onResume();
@@ -89,7 +90,7 @@ public class MenuMainActivity extends ListActivity implements OnClickListener{
 
 	@Override
 	protected void onPause() {
-		countersDAO.close();
+//		countersDAO.close();
 		super.onPause();
 	}
 	
