@@ -1,6 +1,7 @@
 package ndfv.bookoflifev0.loader;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,7 +24,7 @@ public class HistoricDAO extends AbstractDAO implements IHistoricDAO {
 		HistoricDay historicDay = new HistoricDay();
 		historicDay.set_id(cursor.getLong(0));
 		historicDay.setCounter_id(cursor.getLong(1));
-		historicDay.setDayByString(cursor.getString(2));
+		historicDay.setDay(DateTool.createDateByString(cursor.getString(2)));
 		historicDay.setCounter_value(cursor.getInt(3));
 		return historicDay;
 	}
@@ -32,8 +33,8 @@ public class HistoricDAO extends AbstractDAO implements IHistoricDAO {
 	public long insertHistoricDay(CounterEntity entity) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_ID_COUNTER, entity.getId());
-		values.put(MySQLiteHelper.COLUMN_DAY, DateTool.getStringFullDate(entity.getLastUpdateDate()).split(" ")[0]);
-		values.put(MySQLiteHelper.COLUMN_VALUE_COUNTER, entity.getValue());
+		values.put(MySQLiteHelper.COLUMN_DAY, DateTool.getStringDate(new Date()));
+		values.put(MySQLiteHelper.COLUMN_VALUE_COUNTER, 0);
 		
 	    open();
 	    long insertId = database.insert(MySQLiteHelper.TABLE_HISTORIC, null,
@@ -66,6 +67,20 @@ public class HistoricDAO extends AbstractDAO implements IHistoricDAO {
 	    cursor.close();
 	    close();
 	    return historicDaysList;
+	}
+
+	@Override
+	public void saveHistoricDayValue(HistoricDay historic) {
+		open();
+		database = dbHelper.getWritableDatabase();
+		long id = historic.get_id();
+		ContentValues cv = new ContentValues();
+
+
+		cv.put(MySQLiteHelper.COLUMN_VALUE_COUNTER, historic.getCounter_value());
+		database.update(MySQLiteHelper.TABLE_COUNTERS, cv, "_id " + "=" + id,
+				null);	
+		close();
 	}
 
 }

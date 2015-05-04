@@ -36,11 +36,43 @@ public class ModeleCounters implements ICounterModel{
 		
 		//Récupération des historiques au chargement du modèle
 		for (CounterEntity counter : countersList) {
-			if(mustCreatedHistoric(counter)){
-				historicDAO.insertHistoricDay(counter);
-			}
-			counter.setHistoric(historicDAO.getHistoricDaysByCounterId(counter.getId()));
+			initCounterForNewDay(counter);
 		}
+	}
+	
+	/***
+	 * Création d'un nouvel historicDay dans la base
+	 * @param counter
+	 */
+	public void initCounterForNewDay(CounterEntity counter){
+		if(mustCreatedHistoric(counter)){
+			historicDAO.insertHistoricDay(counter);
+		}
+		//Récupération des historics
+		counter.setHistoric(historicDAO.getHistoricDaysByCounterId(counter.getId()));
+		
+		//Sauvegarde de l'historic
+		saveCounterValueInHistoricDay(counter);
+	}
+	
+	/***
+	 * Enregistrement des compteurs actuels dans l'historic
+	 * @param counter
+	 */
+	public void saveCounterValueInHistoricDay(CounterEntity counter){
+		HistoricDay historic = counter.getHistoric().get(counter.getHistoric().size() - 1);
+		historic.setCounter_value(counter.getValue());
+		historicDAO.saveHistoricDayValue(historic);
+		resetCounter(counter);
+	}
+	
+	/***
+	 * Remise à zéro des compteurs et update de base
+	 * @param counter
+	 */
+	public void resetCounter(CounterEntity counter){
+		counter.setValue(0);
+		counterDAO.updateCounter(counter);
 	}
 	
 	public boolean mustCreatedHistoric(CounterEntity counter){

@@ -45,15 +45,7 @@ public class CounterEntity {
 
 
 	public CounterEntity() {
-		this("unknows", false, -1,false);
-	}
-	
-	public void setLastUpdateDateByString(String format){
-		lastUpdateDate = DateTool.createFullDateByString(format);
-	}
-	
-	public void setCreationDateByString(String format){
-		creationDate = DateTool.createFullDateByString(format);
+		this("unknows", false, -1, false);
 	}
 	
 	public Date getCreationDate() {

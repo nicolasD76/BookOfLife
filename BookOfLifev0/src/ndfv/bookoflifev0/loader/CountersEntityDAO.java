@@ -26,8 +26,8 @@ public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 		counterEntity.setValue(cursor.getInt(2));
 		counterEntity.setSelectedByInt(cursor.getInt(3));
 		counterEntity.setWidgetCounterByInt(cursor.getInt(4));
-		counterEntity.setCreationDateByString(cursor.getString(5));
-		counterEntity.setLastUpdateDateByString(cursor.getString(6));
+		counterEntity.setCreationDate(DateTool.createFullDateByString(cursor.getString(5)));
+		counterEntity.setLastUpdateDate(DateTool.createFullDateByString(cursor.getString(6)));
 		return counterEntity;
 	}
 

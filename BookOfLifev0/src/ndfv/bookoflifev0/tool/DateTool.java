@@ -29,6 +29,30 @@ public class DateTool {
 		return fullDate;
 	}
 	
+	public static Date createHourDateByString(String format){
+		Date hourDate = null;
+		try {
+			hourDate = hourDateFormat.parse(format);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return hourDate;
+	}
+	
+	public static Date createDateByString(String format){
+		Date dateDate = null;
+		try {
+			dateDate = dateDateFormat.parse(format);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return dateDate;
+	}
+	
 	public static String getStringFullDate(Date date){ 
 		return fullDateFormat.format(date);
 	}

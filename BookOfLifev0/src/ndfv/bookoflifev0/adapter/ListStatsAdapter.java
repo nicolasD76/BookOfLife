@@ -55,11 +55,11 @@ public class ListStatsAdapter extends ArrayAdapter<CounterEntity>{
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	   holder.libelle_Stat.setText(counter.getName());
-	   holder.stat_value.setText(String.valueOf(counter.getValue()));
+	   holder.libelle_Stat.setText(counter.getName() + " ");
+	   holder.stat_value.setText(String.valueOf(counter.getValue()) + ", ");
 	   
 	   if(counter.getHistoric().size() > 0){
-		   holder.historic_value.setText(String.valueOf(counter.getHistoric().size()));
+		   holder.historic_value.setText("        Hier : " + String.valueOf(counter.getHistoric().get(counter.getHistoric().size() - 1).getCounter_value()));
 	   }
 	 
 	   return convertView;

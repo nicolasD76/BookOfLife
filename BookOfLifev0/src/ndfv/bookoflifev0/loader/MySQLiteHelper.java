@@ -23,7 +23,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String COLUMN_VALUE_COUNTER = "value";
 
 	private static final String DATABASE_NAME = "counters.db";
-	private static final int DATABASE_VERSION = 13;
+	private static final int DATABASE_VERSION = 14;
 
 	// Commande sql pour la création de la base de données
 	private static final String DATABASE_CREATE = "create table " + TABLE_COUNTERS + "(" + COLUMN_ID + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, " + COLUMN_VALUE
