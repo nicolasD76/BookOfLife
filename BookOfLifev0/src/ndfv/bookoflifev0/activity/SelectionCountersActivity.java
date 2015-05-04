@@ -6,6 +6,7 @@ import ndfv.bookoflifev0.adapter.ListCountersAdapter;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.HistoricDay;
 import ndfv.bookoflifev0.entity.ModeleCounters;
+import ndfv.bookoflifev0.tool.DateTool;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -64,7 +65,7 @@ public class SelectionCountersActivity extends ListActivity implements OnClickLi
 			String name = valueAddCounter.getText().toString();
 			if (canCreatedCounterByName(name)) {
 				counterEntity = new CounterEntity();
-				Log.d("d", counterEntity.getStringLastUpdateDate());
+				Log.d("d", DateTool.getStringFullDate(counterEntity.getLastUpdateDate()));
 				counterEntity.setName(name);
 				// enregistrer le nouveau commentaire dans la base de données
 				modeleCounters.insertCounter(counterEntity);

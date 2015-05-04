@@ -10,6 +10,7 @@ import ndfv.bookoflifev0.loader.CountersEntityDAO;
 import ndfv.bookoflifev0.loader.HistoricDAO;
 import ndfv.bookoflifev0.loader.ICountersDAO;
 import ndfv.bookoflifev0.loader.IHistoricDAO;
+import ndfv.bookoflifev0.tool.DateTool;
 
 public class ModeleCounters implements ICounterModel{
 	private static ModeleCounters instance;
@@ -35,21 +36,19 @@ public class ModeleCounters implements ICounterModel{
 		
 		//Récupération des historiques au chargement du modèle
 		for (CounterEntity counter : countersList) {
-			if(isCreatableHistoric(counter)){
+			if(mustCreatedHistoric(counter)){
 				historicDAO.insertHistoricDay(counter);
 			}
 			counter.setHistoric(historicDAO.getHistoricDaysByCounterId(counter.getId()));
 		}
 	}
 	
-	public boolean isCreatableHistoric(CounterEntity counter){
+	public boolean mustCreatedHistoric(CounterEntity counter){
 		boolean isCreatable = false;
 		CounterEntity counterBase = counterDAO.getCounterByName(counter);
 		
-		String lastUpdateInBase = counterBase.getStringLastUpdateDate();
-		int dayNumber = Integer.parseInt(lastUpdateInBase.split("-")[1]);
-		String today = counterBase.getDateFormat().format(new Date());
-		int todayNumber = Integer.parseInt(today.split("-")[1]);
+		int dayNumber = DateTool.getDayNumber(counterBase.getLastUpdateDate());
+		int todayNumber = DateTool.getDayNumber(new Date());
 		if(counterBase.getLastUpdateDate().before(new Date()) && dayNumber != todayNumber){
 			isCreatable = true;
 		}

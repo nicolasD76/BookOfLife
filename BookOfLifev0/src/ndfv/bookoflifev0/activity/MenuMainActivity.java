@@ -7,6 +7,7 @@ import ndfv.bookoflifev0.bookoflifev0.R;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
 import ndfv.bookoflifev0.exception.MiteException;
+import ndfv.bookoflifev0.tool.DateTool;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -43,7 +44,7 @@ public class MenuMainActivity extends ListActivity implements OnClickListener {
 
 		if (counters.getCountersList().size() > 0) {
 			CounterEntity entity = counters.getCountersList().get(0);
-			Log.d("d init", entity.getStringLastUpdateDate());
+			Log.d("d init", DateTool.getStringFullDate(entity.getLastUpdateDate()));
 		}
 
 		ListCountersActivatedAdapter adapter = new ListCountersActivatedAdapter(this, android.R.layout.simple_list_item_1, counters.getCountersActivatedList());

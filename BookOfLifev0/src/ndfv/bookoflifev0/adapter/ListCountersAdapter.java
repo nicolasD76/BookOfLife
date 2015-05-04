@@ -6,6 +6,7 @@ import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
 import ndfv.bookoflifev0.exception.MiteException;
 import ndfv.bookoflifev0.loader.CountersEntityDAO;
+import ndfv.bookoflifev0.tool.DateTool;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -115,7 +116,7 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String[] separated = counter.getStringCreationDate().split(" ");
+		String[] separated = DateTool.getStringFullDate(counter.getCreationDate()).split(" ");
 		holder.code.setText(" (" + separated[0] + ")");
 		holder.name.setText(counter.getName());
 		holder.name.setChecked(counter.isSelected());

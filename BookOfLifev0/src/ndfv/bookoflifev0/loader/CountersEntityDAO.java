@@ -3,6 +3,7 @@ package ndfv.bookoflifev0.loader;
 import java.util.ArrayList;
 
 import ndfv.bookoflifev0.entity.CounterEntity;
+import ndfv.bookoflifev0.tool.DateTool;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -36,8 +37,8 @@ public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 		values.put(MySQLiteHelper.COLUMN_NAME, entity.getName());
 		values.put(MySQLiteHelper.COLUMN_VALUE, 0);
 		values.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
-		values.put(MySQLiteHelper.COLUMN_CREATION_DATE, entity.getStringCreationDate());
-		values.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, entity.getStringLastUpdateDate());
+		values.put(MySQLiteHelper.COLUMN_CREATION_DATE, DateTool.getStringFullDate(entity.getCreationDate()));
+		values.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, DateTool.getStringFullDate(entity.getLastUpdateDate()));
 		values.put(MySQLiteHelper.COLUMN_ISWIDGET, entity.isWidgetCounter());
 
 		
@@ -97,7 +98,7 @@ public class CountersEntityDAO extends AbstractDAO implements ICountersDAO{
 		cv.put(MySQLiteHelper.COLUMN_VALUE, entity.getValue());
 		cv.put(MySQLiteHelper.COLUMN_CHECKED, entity.isSelected());
 		cv.put(MySQLiteHelper.COLUMN_ISWIDGET, entity.isWidgetCounter());
-		cv.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, entity.getStringLastUpdateDate());
+		cv.put(MySQLiteHelper.COLUMN_LAST_UPDATE_DATE, DateTool.getStringFullDate(entity.getLastUpdateDate()));
 		database.update(MySQLiteHelper.TABLE_COUNTERS, cv, "_id " + "=" + id,
 				null);	
 		close();

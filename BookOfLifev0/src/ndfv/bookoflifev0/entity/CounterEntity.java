@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import ndfv.bookoflifev0.tool.DateTool;
+
 public class CounterEntity {
 
 	private long id = -1;
@@ -14,7 +16,7 @@ public class CounterEntity {
 	private double value;
 	private Date creationDate;
 	private Date lastUpdateDate;
-	private SimpleDateFormat dateFormat;
+	
 	
 	private ArrayList<HistoricDay> historic;
 
@@ -25,7 +27,6 @@ public class CounterEntity {
 		this.isWidgetCounter = isWidgetCounter;
 		this.id = id;
 		this.value = 1;
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		this.creationDate = new Date();
 		this.lastUpdateDate = new Date();
 		historic = new ArrayList<HistoricDay>();
@@ -47,39 +48,12 @@ public class CounterEntity {
 		this("unknows", false, -1,false);
 	}
 	
-	public SimpleDateFormat getDateFormat() {
-		return dateFormat;
-	}
-
-	public void setDateFormat(SimpleDateFormat dateFormat) {
-		this.dateFormat = dateFormat;
-	}
-
-
-	public String getStringCreationDate(){ 
-		return dateFormat.format(creationDate);
+	public void setLastUpdateDateByString(String format){
+		lastUpdateDate = DateTool.createFullDateByString(format);
 	}
 	
 	public void setCreationDateByString(String format){
-		try {
-			creationDate = dateFormat.parse(format);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public String getStringLastUpdateDate(){ 
-		return dateFormat.format(lastUpdateDate);
-	}
-	
-	public void setLastUpdateDateByString(String format){
-		try {
-			lastUpdateDate = dateFormat.parse(format);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		creationDate = DateTool.createFullDateByString(format);
 	}
 	
 	public Date getCreationDate() {

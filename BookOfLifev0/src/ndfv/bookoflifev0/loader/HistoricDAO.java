@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.HistoricDay;
+import ndfv.bookoflifev0.tool.DateTool;
 
 public class HistoricDAO extends AbstractDAO implements IHistoricDAO {
 	private String[] allColumns = { 
@@ -31,7 +32,7 @@ public class HistoricDAO extends AbstractDAO implements IHistoricDAO {
 	public long insertHistoricDay(CounterEntity entity) {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COLUMN_ID_COUNTER, entity.getId());
-		values.put(MySQLiteHelper.COLUMN_DAY, entity.getStringLastUpdateDate().split(" ")[0]);
+		values.put(MySQLiteHelper.COLUMN_DAY, DateTool.getStringFullDate(entity.getLastUpdateDate()).split(" ")[0]);
 		values.put(MySQLiteHelper.COLUMN_VALUE_COUNTER, entity.getValue());
 		
 	    open();

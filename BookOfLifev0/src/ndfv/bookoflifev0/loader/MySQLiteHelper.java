@@ -47,6 +47,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		Log.w(MySQLiteHelper.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_COUNTERS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORIC);
 		onCreate(db);
 	}
 }
