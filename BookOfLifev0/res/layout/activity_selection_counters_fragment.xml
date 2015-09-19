@@ -11,6 +11,7 @@
 
     <TextView
         android:id="@+id/title_counters"
+        style="@style/textTitlestyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world_counters" />
@@ -25,12 +26,14 @@
 
         <TextView
             android:id="@+id/add_label"
+            style="@style/textDescriptionStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Entrez un nouveau compteur: " />
 
         <EditText
             android:id="@+id/add_value"
+            android:background="@drawable/shape_edit_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="60dp" />
@@ -38,16 +41,17 @@
 
     <LinearLayout
         android:id="@+id/group_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/button_width"
+        android:layout_height="@dimen/button_height"
         android:layout_below="@id/group"
-        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/add_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/selector_bouton"
             android:layout_weight="1"
             android:text="Add New" />
 

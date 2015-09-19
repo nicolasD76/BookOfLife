@@ -8,6 +8,7 @@ import ndfv.bookoflifev0.exception.MiteException;
 import ndfv.bookoflifev0.loader.CountersEntityDAO;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,11 +56,13 @@ public class ListCountersActivatedAdapter extends ArrayAdapter<CounterEntity> {
 		   LayoutInflater vi = (LayoutInflater)getContext().getSystemService(
 		     Context.LAYOUT_INFLATER_SERVICE);
 		   convertView = vi.inflate(R.layout.listview_counters_activated_layout, null);
-		 
+		   Typeface font = Typeface.createFromAsset(convertView.getContext().getAssets(), "book_of_life_font.ttf");
 		   holder = new ViewHolder();
 		   holder.counter = (TextView) convertView.findViewById(R.id.value_counters_activated);
 		   holder.counterName = (TextView) convertView.findViewById(R.id.label_counters_activated);
 		   holder.incremente = (ImageButton) convertView.findViewById(R.id.button_incremente_value);
+		   holder.counter.setTypeface(font);
+		   holder.counterName.setTypeface(font);
 		   convertView.setTag(holder);
 
 		 

@@ -6,6 +6,7 @@ import ndfv.bookoflifev0.entity.CounterEntity;
 import ndfv.bookoflifev0.entity.ModeleCounters;
 import ndfv.bookoflifev0.entity.ViewPagerInterface;
 import ndfv.bookoflifev0.tool.DateTool;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class SelectionCountersFragment extends ListFragment implements OnClickListener,ViewPagerInterface{
 
@@ -23,6 +25,8 @@ public class SelectionCountersFragment extends ListFragment implements OnClickLi
 	private Button buttonAddCounter = null;
 	private EditText valueAddCounter = null;
 	private ListView listviewCounters = null;
+	private TextView title;
+	private TextView label1;
 	private ListCountersAdapter adapter;
 
 		
@@ -30,10 +34,15 @@ public class SelectionCountersFragment extends ListFragment implements OnClickLi
 	    public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                             Bundle savedInstanceState) {
 		 	View view = inflater.inflate(R.layout.activity_selection_counters_fragment, container, false);
+		 	//On charge les textView pour setter la police
+			title = (TextView) view.findViewById(R.id.title_counters);
+			label1 = (TextView) view.findViewById(R.id.add_label);
+			setFont();
+
+			//début du code
 			modeleCounters = ModeleCounters.getInstance(this.getActivity());
 			buttonAddCounter = (Button) view.findViewById(R.id.add_button);
 			buttonAddCounter.setOnClickListener(this);
-
 			valueAddCounter = (EditText) view.findViewById(R.id.add_value);
 
 			listviewCounters = (ListView) view.findViewById(android.R.id.list);
@@ -41,11 +50,14 @@ public class SelectionCountersFragment extends ListFragment implements OnClickLi
 			adapter = new ListCountersAdapter(this.getActivity(), android.R.layout.simple_list_item_1, modeleCounters.getCountersList());
 			setListAdapter(adapter);
 			adapter.notifyDataSetChanged();
-//			 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//			 android.R.layout.simple_list_item_1, mStrings);
 	        return view;
 	    }
 	 
+	 private void setFont(){
+		Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "book_of_life_font.ttf");
+		title.setTypeface(font);
+		label1.setTypeface(font);
+	 }
 		@Override
 		public void onClick(View v) {
 			@SuppressWarnings("unchecked")

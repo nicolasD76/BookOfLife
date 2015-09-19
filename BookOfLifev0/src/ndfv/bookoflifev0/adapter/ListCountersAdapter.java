@@ -11,6 +11,7 @@ import ndfv.bookoflifev0.tool.DateTool;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,10 +48,12 @@ public class ListCountersAdapter extends ArrayAdapter<CounterEntity> {
 		if (convertView == null) {
 			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = vi.inflate(R.layout.listview_counters_layout, null);
-
+			Typeface font = Typeface.createFromAsset(convertView.getContext().getAssets(), "book_of_life_font.ttf");
 			holder = new ViewHolder();
 			holder.code = (TextView) convertView.findViewById(R.id.label_counters);
 			holder.name = (CheckBox) convertView.findViewById(R.id.check_box_counters);
+			holder.code.setTypeface(font);
+			holder.name.setTypeface(font);
 			convertView.setTag(holder);
 
 			final ViewHolder holderForListenner = holder;

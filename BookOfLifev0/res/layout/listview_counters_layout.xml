@@ -7,12 +7,14 @@
 
     <CheckBox
         android:id="@+id/check_box_counters"
+        style="@style/textDescriptionStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="right" />
 
     <TextView
         android:id="@+id/label_counters"
+        style="@style/textNumeric"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

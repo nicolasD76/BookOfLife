@@ -19,8 +19,9 @@
 
         <Button
             android:id="@+id/stats_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/button_width"
+            android:layout_height="@dimen/button_height"
+            android:background="@drawable/selector_bouton"
             android:layout_weight="1"
             android:text="@string/text_button_stats" />
     </LinearLayout>
