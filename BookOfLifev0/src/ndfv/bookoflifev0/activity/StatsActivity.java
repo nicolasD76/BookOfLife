@@ -18,7 +18,7 @@ public class StatsActivity extends ListActivity  {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stats);
-		
+		overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 		modeleCounters = ModeleCounters.getInstance(this);
 		
 		ListStatsAdapter adapter = new ListStatsAdapter(this,
