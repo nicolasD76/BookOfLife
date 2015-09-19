@@ -25,8 +25,6 @@ public class StatsActivity extends ListActivity  {
 				android.R.layout.simple_list_item_1, modeleCounters.getCountersList());
 		adapter.notifyDataSetChanged();
 		setListAdapter(adapter);
-		
-		Log.d("d jour", modeleCounters.getCountersActivatedList().get(0).getHistoric().size() + "  size");
 	}
 
 	@Override

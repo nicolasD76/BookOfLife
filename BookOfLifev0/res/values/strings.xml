@@ -13,5 +13,6 @@
     <string name="title_activity_stats">StatsActivity</string>
     <string name="title_activity_widget_configure">WidgetConfigure</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main_fragment">MainFragment</string>
 
 </resources>

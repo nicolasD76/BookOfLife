@@ -60,10 +60,12 @@ public class ModeleCounters implements ICounterModel{
 	 * @param counter
 	 */
 	public void saveCounterValueInHistoricDay(CounterEntity counter){
-		HistoricDay historic = counter.getHistoric().get(counter.getHistoric().size() - 1);
-		historic.setCounter_value(counter.getValue());
-		historicDAO.saveHistoricDayValue(historic);
-		resetCounter(counter);
+		if(counter.getHistoric().size()>0){
+			HistoricDay historic = counter.getHistoric().get(counter.getHistoric().size() - 1);
+			historic.setCounter_value(counter.getValue());
+			historicDAO.saveHistoricDayValue(historic);
+			resetCounter(counter);
+		}
 	}
 	
 	/***
